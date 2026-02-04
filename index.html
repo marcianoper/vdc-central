@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>VDC 360° — Central</title>
+  <style>
+    :root{
+      --brand:#0a7a3b; --bg:#f6f7f8; --card:#fff; --ink:#111; --muted:#6b7280;
+      --shadow:0 12px 28px rgba(0,0,0,.10); --r:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--ink)
+    }
+    header{
+      background:linear-gradient(135deg,var(--brand),#0f9a52);
+      color:#fff;
+      padding:26px 16px
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:0 14px}
+    .title{font-size:24px;font-weight:900}
+    .sub{opacity:.9;margin-top:6px;font-size:14px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin:18px auto 28px
+    }
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:18px;
+      border:1px solid rgba(0,0,0,.06)
+    }
+    .k{font-weight:900;color:var(--brand);display:flex;gap:10px;align-items:center}
+    .d{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.4}
+    .btn{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:12px 14px;
+      background:var(--brand);
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      border-radius:14px
+    }
+    .btn:hover{filter:brightness(1.06)}
+    footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 24px}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="title">🧠 VDC 360° — Central</div>
+    <div class="sub">Panel de navegación operativa</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+
+    <section class="card">
+      <div class="k">🛒 Registro Mostrador</div>
+      <div class="d">
+        Envíos a mostrador, devoluciones y totales netos.
+      </div>
+      <a class="btn" href="https://marcianoper.github.io/mostrador-vdc360/">
+        Entrar a Mostrador →
+      </a>
+    </section>
+
+    <section class="card">
+      <div class="k">🧾 Notas a Crédito</div>
+      <div class="d">
+        Generación, uso y cierre de notas a crédito.
+      </div>
+      <a class="btn" href="https://marcianoper.github.io/notascreditocvc/">
+        Entrar a Notas →
+      </a>
+    </section>
+
+    <section class="card">
+      <div class="k">🚚 Hoja de Viaje</div>
+      <div class="d">
+        Registro por tandas, totales diarios y control de viaje.
+      </div>
+      <a class="btn" href="https://marcianoper.github.io/hoja-viaje-vdc360/">
+        Entrar a Hoja de Viaje →
+      </a>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  VDC 360° — Central · Operación sin fricción
+</footer>
+
+</body>
+</html>
