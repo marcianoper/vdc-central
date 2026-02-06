@@ -215,9 +215,13 @@
       box-shadow:0 12px 22px rgba(2,6,23,.18);
       flex:0 0 auto;
     }
+
+    /* icon gradients */
     .i1{ background:linear-gradient(135deg,#0ea5e9,#2563eb); }
     .i2{ background:linear-gradient(135deg,#f97316,#ef4444); }
     .i3{ background:linear-gradient(135deg,#10b981,#0a7a3b); }
+    .i4{ background:linear-gradient(135deg,#22c55e,#15803d); } /* limpieza */
+    .i5{ background:linear-gradient(135deg,#a78bfa,#6d28d9); } /* producción */
 
     .card h2{
       margin:0;
@@ -313,7 +317,7 @@
             <path d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
               stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje)" />
+          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza)" />
           <span class="chip">Ctrl / ⌘ + K</span>
         </div>
       </div>
@@ -329,7 +333,7 @@
       <div class="heroCard">
         <h1>Todo tu sistema en un solo lugar.</h1>
         <p>
-          Acceso rápido a Mostrador, Notas a Crédito y Hoja de Viaje.
+          Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Hojas/Limpieza y Producción.
           Diseñado para operación: limpio, directo y sin perder tiempo.
         </p>
       </div>
@@ -364,7 +368,8 @@
 <main class="wrap">
   <div class="grid" id="cards">
 
-    <section class="card" data-key="mostrador envios devoluciones registro">
+    <!-- Mostrador -->
+    <section class="card" data-key="mostrador envios devoluciones registro ventas">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
           <div class="icon i1">🛒</div>
@@ -378,13 +383,13 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/mostrador-vdc360/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
 
+    <!-- Notas a Crédito -->
     <section class="card" data-key="notas credito clientes cierre">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -399,13 +404,13 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/notascreditocvc/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
 
+    <!-- Hoja de Viaje -->
     <section class="card" data-key="hoja viaje registro tandas camiones">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -420,9 +425,50 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/hoja-viaje-vdc360/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
+    <!-- ✅ NUEVO: Hojas / Panzas a limpiar -->
+    <section class="card" data-key="hojas panzas limpiar limpieza tablas notas prueba">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i4">🧼</div>
+          <div>
+            <h2>Hojas & Limpieza (Panzas)</h2>
+            <div class="desc">Hojas de captura: panzas enviadas a limpieza y control de movimientos.</div>
+            <div class="metaRow">
+              <span class="tag green">Limpieza</span>
+              <span class="tag">Panzas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/PRUEBA-NOTAS-/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
+    <!-- ✅ NUEVO: Producción (inicio/fin) -->
+    <section class="card" data-key="produccion inicio fin lineas hora finalizacion">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i5">⏱️</div>
+          <div>
+            <h2>Producción (Inicio / Fin)</h2>
+            <div class="desc">Registro de hora de arranque y finalización por líneas de producción.</div>
+            <div class="metaRow">
+              <span class="tag green">Tiempos</span>
+              <span class="tag">Líneas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/produccion-vdc360/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
