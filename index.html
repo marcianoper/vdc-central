@@ -103,9 +103,7 @@
     }
 
     /* Hero */
-    .hero{
-      padding:18px 0 10px;
-    }
+    .hero{ padding:18px 0 10px; }
     .heroGrid{
       display:grid;
       grid-template-columns: 1.3fr .7fr;
@@ -148,16 +146,20 @@
       line-height:1.45;
       max-width:62ch;
     }
-    .heroMini{
-      display:grid;
-      gap:12px;
-    }
+
+    .heroMini{ display:grid; gap:12px; }
     .miniStats{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
       border-radius:22px;
       padding:14px;
       box-shadow:var(--shadow2);
+    }
+    .miniStats .note{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
+      margin:0;
     }
     .miniStats .kpiRow{
       display:grid;
@@ -173,12 +175,7 @@
     }
     .kpi .t{font-size:11px;color:var(--muted);font-weight:1000}
     .kpi .v{margin-top:6px;font-size:15px;font-weight:1000;color:var(--ink)}
-    .miniStats .note{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-      margin:0;
-    }
+    @media (max-width:900px){ .miniStats .kpiRow{ grid-template-columns:1fr; } }
 
     /* Cards */
     main{padding:10px 0 20px}
@@ -259,7 +256,6 @@
       color:var(--brand);
       border-color: rgba(10,122,59,.16);
     }
-
     .btnRow{
       margin-top:14px;
       display:flex;
@@ -294,9 +290,7 @@
       padding:12px 0 26px;
     }
 
-    /* Tiny helper for search */
     .hide{ display:none !important; }
-
   </style>
 </head>
 
