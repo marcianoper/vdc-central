@@ -49,14 +49,24 @@
       display:flex; align-items:center; gap:12px;
       min-width:260px;
     }
+
+    /* ✅ Logo (imagen) */
     .logo{
       width:44px;height:44px;border-radius:14px;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       box-shadow:0 10px 20px rgba(10,122,59,.25);
       display:grid; place-items:center;
-      color:#fff; font-weight:1000;
-      letter-spacing:.5px;
+      overflow:hidden;
+      padding:6px;
     }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.18));
+    }
+
     .title{
       display:flex; flex-direction:column; line-height:1.1;
     }
@@ -304,7 +314,10 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">VDC</div>
+        <div class="logo">
+          <!-- ✅ Cambia ./logo.png por la ruta real si lo pones en otra carpeta -->
+          <img src="./logo.png" alt="Logo VDC 360°" />
+        </div>
         <div class="title">
           <b>VDC 360° — Central</b>
           <span>Panel de navegación operativa</span>
@@ -368,7 +381,6 @@
 <main class="wrap">
   <div class="grid" id="cards">
 
-    <!-- Mostrador -->
     <section class="card" data-key="mostrador envios devoluciones registro ventas">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -389,7 +401,6 @@
       </div>
     </section>
 
-    <!-- Notas a Crédito -->
     <section class="card" data-key="notas credito clientes cierre">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -410,7 +421,6 @@
       </div>
     </section>
 
-    <!-- Hoja de Viaje -->
     <section class="card" data-key="hoja viaje registro tandas camiones">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -431,7 +441,6 @@
       </div>
     </section>
 
-    <!-- ✅ NUEVO: Hojas / Panzas a limpiar -->
     <section class="card" data-key="hojas panzas limpiar limpieza tablas notas prueba">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -452,7 +461,6 @@
       </div>
     </section>
 
-    <!-- ✅ NUEVO: Producción (inicio/fin) -->
     <section class="card" data-key="produccion inicio fin lineas hora finalizacion">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -481,7 +489,6 @@
 </footer>
 
 <script>
-  // Buscador simple (filtra tarjetas)
   const q = document.getElementById('q');
   const cards = Array.from(document.querySelectorAll('#cards .card'));
 
@@ -494,7 +501,6 @@
   }
   q.addEventListener('input', filterCards);
 
-  // Atajo Ctrl/⌘ + K
   window.addEventListener('keydown', (e)=>{
     const isMac = navigator.platform.toLowerCase().includes('mac');
     const cmdk = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
