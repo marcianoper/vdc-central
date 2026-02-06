@@ -49,15 +49,24 @@
       display:flex; align-items:center; gap:12px;
       min-width:260px;
     }
+
+    /* ✅ Logo (imagen) */
     .logo{
       width:44px;height:44px;border-radius:14px;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       box-shadow:0 10px 20px rgba(10,122,59,.25);
       display:grid; place-items:center;
-      color:#fff; font-weight:1000;
-      letter-spacing:.5px;
-      user-select:none;
+      overflow:hidden;
+      padding:6px;
     }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.18));
+    }
+
     .title{
       display:flex; flex-direction:column; line-height:1.1;
     }
@@ -103,56 +112,11 @@
       white-space:nowrap;
     }
 
-    /* ✅ Modo Operador (toggle) */
-    .modePill{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(229,231,235,.9);
-      background:rgba(255,255,255,.7);
-      box-shadow:0 8px 18px rgba(2,6,23,.06);
-      user-select:none;
-      white-space:nowrap;
-      font-weight:1000;
-      color:#111827;
-      font-size:12px;
-    }
-    .switch{
-      position:relative;
-      width:44px;
-      height:26px;
-      border-radius:999px;
-      background:#e5e7eb;
-      border:1px solid #d1d5db;
-      cursor:pointer;
-      flex:0 0 auto;
-    }
-    .switch::after{
-      content:"";
-      position:absolute;
-      top:3px; left:3px;
-      width:20px; height:20px;
-      border-radius:999px;
-      background:#fff;
-      box-shadow:0 6px 14px rgba(0,0,0,.12);
-      transition: transform .16s ease;
-    }
-    .switch.on{
-      background:rgba(10,122,59,.18);
-      border-color: rgba(10,122,59,.35);
-    }
-    .switch.on::after{
-      transform: translateX(18px);
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-    }
-
     /* Hero */
     .hero{ padding:18px 0 10px; }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.3fr .7fr;
       gap:14px;
       align-items:stretch;
     }
@@ -204,7 +168,7 @@
     .miniStats .note{
       font-size:12px;
       color:var(--muted);
-      font-weight:1000;
+      font-weight:800;
       margin:0;
     }
     .miniStats .kpiRow{
@@ -221,93 +185,7 @@
     }
     .kpi .t{font-size:11px;color:var(--muted);font-weight:1000}
     .kpi .v{margin-top:6px;font-size:15px;font-weight:1000;color:var(--ink)}
-
-    /* ✅ Checklist + Notas */
-    .toolRow{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .smallBtn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(229,231,235,.9);
-      background:#fff;
-      color:#111827;
-      font-weight:1000;
-      font-size:12px;
-      cursor:pointer;
-      box-shadow:0 8px 18px rgba(2,6,23,.06);
-    }
-    .smallBtn:hover{ filter:brightness(1.02); }
-    .smallBtn.danger{
-      background:#fff1f2;
-      border-color:#fecdd3;
-      color:#9f1239;
-    }
-
-    .checklist{
-      margin-top:12px;
-      display:grid;
-      gap:10px;
-    }
-    .chkItem{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(229,231,235,.9);
-    }
-    .chkItem input{
-      width:18px;height:18px;
-      accent-color: var(--brand);
-      cursor:pointer;
-      flex:0 0 auto;
-    }
-    .chkText{
-      display:flex;
-      flex-direction:column;
-      line-height:1.15;
-    }
-    .chkText b{
-      font-size:13px;
-      font-weight:1000;
-      color:#0f172a;
-    }
-    .chkText span{
-      font-size:12px;
-      font-weight:800;
-      color:var(--muted);
-      margin-top:4px;
-    }
-    .done .chkText b{ text-decoration:line-through; opacity:.75; }
-    .done{ background:rgba(10,122,59,.06); border-color: rgba(10,122,59,.18); }
-
-    .noteBox{
-      margin-top:10px;
-    }
-    textarea{
-      width:100%;
-      min-height:110px;
-      resize:vertical;
-      border-radius:16px;
-      border:1px solid rgba(229,231,235,.95);
-      padding:12px 12px;
-      font-weight:800;
-      color:#0f172a;
-      background:rgba(255,255,255,.9);
-      outline:none;
-      box-shadow:0 8px 18px rgba(2,6,23,.06);
-    }
+    @media (max-width:900px){ .miniStats .kpiRow{ grid-template-columns:1fr; } }
 
     /* Cards */
     main{padding:10px 0 20px}
@@ -347,9 +225,13 @@
       box-shadow:0 12px 22px rgba(2,6,23,.18);
       flex:0 0 auto;
     }
+
+    /* icon gradients */
     .i1{ background:linear-gradient(135deg,#0ea5e9,#2563eb); }
     .i2{ background:linear-gradient(135deg,#f97316,#ef4444); }
     .i3{ background:linear-gradient(135deg,#10b981,#0a7a3b); }
+    .i4{ background:linear-gradient(135deg,#22c55e,#15803d); } /* limpieza */
+    .i5{ background:linear-gradient(135deg,#a78bfa,#6d28d9); } /* producción */
 
     .card h2{
       margin:0;
@@ -388,7 +270,6 @@
       color:var(--brand);
       border-color: rgba(10,122,59,.16);
     }
-
     .btnRow{
       margin-top:14px;
       display:flex;
@@ -423,17 +304,7 @@
       padding:12px 0 26px;
     }
 
-    /* Tiny helper for search */
     .hide{ display:none !important; }
-
-    /* ✅ Modo operador: simplificar UI */
-    body.operator .tag,
-    body.operator .metaRow{ display:none; }
-    body.operator .btn.secondary{ display:none; }
-    body.operator .search .chip{ display:none; }
-    body.operator .heroCard p{ opacity:.92; }
-    body.operator .desc{ font-size:13px; }
-
   </style>
 </head>
 
@@ -443,7 +314,10 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">VDC</div>
+        <div class="logo">
+          <!-- ✅ Cambia ./logo.png por la ruta real si lo pones en otra carpeta -->
+          <img src="./logo.png" alt="Logo VDC 360°" />
+        </div>
         <div class="title">
           <b>VDC 360° — Central</b>
           <span>Panel de navegación operativa</span>
@@ -456,16 +330,12 @@
             <path d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
               stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje)" />
+          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza)" />
           <span class="chip">Ctrl / ⌘ + K</span>
         </div>
       </div>
 
-      <!-- ✅ Modo operador -->
-      <div class="modePill" title="Modo operador simplifica la pantalla (ideal bodega)">
-        <span id="modeLabel">Operador: OFF</span>
-        <div id="opSwitch" class="switch" role="switch" aria-checked="false" tabindex="0"></div>
-      </div>
+      <span class="chip">✅ Operación sin fricción</span>
     </div>
   </div>
 </header>
@@ -476,8 +346,8 @@
       <div class="heroCard">
         <h1>Todo tu sistema en un solo lugar.</h1>
         <p>
-          Acceso rápido a Mostrador, Notas a Crédito y Hoja de Viaje.
-          Atajos: <b>1</b>=Mostrador · <b>2</b>=Notas · <b>3</b>=Viaje.
+          Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Hojas/Limpieza y Producción.
+          Diseñado para operación: limpio, directo y sin perder tiempo.
         </p>
       </div>
 
@@ -486,27 +356,20 @@
           <p class="note">Atajos rápidos</p>
           <div class="kpiRow">
             <div class="kpi"><div class="t">Buscar</div><div class="v">⌘/Ctrl + K</div></div>
-            <div class="kpi"><div class="t">Mostrador</div><div class="v">1</div></div>
-            <div class="kpi"><div class="t">Notas / Viaje</div><div class="v">2 / 3</div></div>
+            <div class="kpi"><div class="t">Abrir</div><div class="v">Enter</div></div>
+            <div class="kpi"><div class="t">Salir</div><div class="v">Esc</div></div>
           </div>
-
-          <div class="toolRow">
-            <div class="chip" id="todayPill">📅 Hoy: —</div>
-            <button class="smallBtn danger" id="btnResetDay" type="button">🧹 Limpiar día</button>
-          </div>
-
-          <!-- ✅ Checklist -->
-          <div class="checklist" id="checklist"></div>
         </div>
 
         <div class="miniStats">
-          <p class="note">Notas rápidas del día</p>
-          <div class="noteBox">
-            <textarea id="quickNotes" placeholder="Ej: hoy faltó teleco, revisar cajas National, el camión llegó tarde…"></textarea>
-          </div>
-          <div class="toolRow">
-            <button class="smallBtn" id="btnCopyNotes" type="button">📋 Copiar notas</button>
-            <div class="chip" id="savePill">💾 Guardado</div>
+          <p class="note">Tip operativo</p>
+          <div class="kpiRow" style="grid-template-columns:1fr;">
+            <div class="kpi">
+              <div class="t">Recomendación</div>
+              <div class="v" style="font-size:13px;font-weight:900;color:#111827">
+                Mantén esta pestaña fija como “Inicio” en el navegador.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -518,7 +381,7 @@
 <main class="wrap">
   <div class="grid" id="cards">
 
-    <section class="card" data-key="mostrador envios devoluciones registro">
+    <section class="card" data-key="mostrador envios devoluciones registro ventas">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
           <div class="icon i1">🛒</div>
@@ -532,7 +395,6 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/mostrador-vdc360/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
@@ -553,7 +415,6 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/notascreditocvc/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
@@ -574,9 +435,48 @@
           </div>
         </div>
       </div>
-
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/hoja-viaje-vdc360/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
+    <section class="card" data-key="hojas panzas limpiar limpieza tablas notas prueba">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i4">🧼</div>
+          <div>
+            <h2>Hojas & Limpieza (Panzas)</h2>
+            <div class="desc">Hojas de captura: panzas enviadas a limpieza y control de movimientos.</div>
+            <div class="metaRow">
+              <span class="tag green">Limpieza</span>
+              <span class="tag">Panzas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/PRUEBA-NOTAS-/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
+    <section class="card" data-key="produccion inicio fin lineas hora finalizacion">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i5">⏱️</div>
+          <div>
+            <h2>Producción (Inicio / Fin)</h2>
+            <div class="desc">Registro de hora de arranque y finalización por líneas de producción.</div>
+            <div class="metaRow">
+              <span class="tag green">Tiempos</span>
+              <span class="tag">Líneas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/produccion-vdc360/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
@@ -589,183 +489,9 @@
 </footer>
 
 <script>
-  // =========================
-  // Utilidades
-  // =========================
-  const $ = (s)=>document.querySelector(s);
-
-  function todayISODate(){
-    const d = new Date();
-    const off = d.getTimezoneOffset();
-    const local = new Date(d.getTime() - off*60000);
-    return local.toISOString().slice(0,10);
-  }
-
-  function storageKeyForDay(){
-    return `vdc_central_state_${todayISODate()}`;
-  }
-
-  function safeParse(json, fallback){
-    try{ return JSON.parse(json); }catch(e){ return fallback; }
-  }
-
-  // =========================
-  // Estado por día (localStorage)
-  // =========================
-  const DEFAULT_CHECKLIST = [
-    { id:"open_camion",  title:"Abrir camión / arranque",        sub:"Confirmar inicio de jornada" },
-    { id:"first_pesada", title:"Registrar primera pesada",        sub:"Evitar huecos en el registro" },
-    { id:"cajas",        title:"Revisar cajas (inventario)",      sub:"National / Excel / Washington" },
-    { id:"cierre",       title:"Cierre del día",                  sub:"Resumen + WhatsApp + revisión" }
-  ];
-
-  function loadState(){
-    const raw = localStorage.getItem(storageKeyForDay());
-    const base = { operator:false, checklist:{}, notes:"" };
-    const st = raw ? safeParse(raw, base) : base;
-
-    // asegurar llaves checklist
-    st.checklist = st.checklist || {};
-    DEFAULT_CHECKLIST.forEach(it=>{
-      if(typeof st.checklist[it.id] !== 'boolean') st.checklist[it.id] = false;
-    });
-
-    if(typeof st.operator !== 'boolean') st.operator = false;
-    if(typeof st.notes !== 'string') st.notes = '';
-
-    return st;
-  }
-
-  function saveState(st){
-    localStorage.setItem(storageKeyForDay(), JSON.stringify(st));
-  }
-
-  let state = loadState();
-
-  // =========================
-  // UI: Fecha
-  // =========================
-  $('#todayPill').textContent = `📅 Hoy: ${todayISODate()}`;
-
-  // =========================
-  // UI: Modo Operador
-  // =========================
-  function applyOperatorMode(on){
-    document.body.classList.toggle('operator', !!on);
-    const sw = $('#opSwitch');
-    const label = $('#modeLabel');
-    sw.classList.toggle('on', !!on);
-    sw.setAttribute('aria-checked', on ? 'true' : 'false');
-    label.textContent = `Operador: ${on ? 'ON' : 'OFF'}`;
-  }
-
-  function toggleOperator(){
-    state.operator = !state.operator;
-    saveState(state);
-    applyOperatorMode(state.operator);
-  }
-
-  $('#opSwitch').addEventListener('click', toggleOperator);
-  $('#opSwitch').addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' '){
-      e.preventDefault();
-      toggleOperator();
-    }
-  });
-
-  applyOperatorMode(state.operator);
-
-  // =========================
-  // UI: Checklist
-  // =========================
-  function renderChecklist(){
-    const box = $('#checklist');
-    box.innerHTML = DEFAULT_CHECKLIST.map(it=>{
-      const checked = !!state.checklist[it.id];
-      return `
-        <div class="chkItem ${checked ? 'done':''}" data-id="${it.id}">
-          <input type="checkbox" ${checked ? 'checked':''} aria-label="${it.title}">
-          <div class="chkText">
-            <b>${it.title}</b>
-            <span>${it.sub}</span>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    // bind
-    box.querySelectorAll('.chkItem').forEach(row=>{
-      const id = row.getAttribute('data-id');
-      const cb = row.querySelector('input[type="checkbox"]');
-      cb.addEventListener('change', ()=>{
-        state.checklist[id] = !!cb.checked;
-        saveState(state);
-        row.classList.toggle('done', !!cb.checked);
-      });
-    });
-  }
-
-  renderChecklist();
-
-  // =========================
-  // UI: Notas rápidas
-  // =========================
-  const notesEl = $('#quickNotes');
-  const savePill = $('#savePill');
-
-  function setSavedPill(msg){
-    savePill.textContent = msg;
-    savePill.style.background = "rgba(10,122,59,.10)";
-    savePill.style.color = "var(--brand)";
-  }
-  function setSavingPill(){
-    savePill.textContent = "…guardando";
-    savePill.style.background = "#fff7ed";
-    savePill.style.color = "#c2410c";
-  }
-
-  notesEl.value = state.notes || "";
-
-  let saveTimer = null;
-  notesEl.addEventListener('input', ()=>{
-    setSavingPill();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=>{
-      state.notes = notesEl.value || "";
-      saveState(state);
-      setSavedPill("💾 Guardado");
-    }, 250);
-  });
-
-  $('#btnCopyNotes').addEventListener('click', async ()=>{
-    try{
-      await navigator.clipboard.writeText(notesEl.value || "");
-      setSavedPill("✅ Copiado");
-      setTimeout(()=>setSavedPill("💾 Guardado"), 900);
-    }catch(e){
-      alert("No se pudo copiar (tu navegador bloqueó permisos).");
-    }
-  });
-
-  // =========================
-  // Limpiar día
-  // =========================
-  $('#btnResetDay').addEventListener('click', ()=>{
-    const ok = confirm("¿Seguro que quieres limpiar checklist y notas de HOY?");
-    if(!ok) return;
-    localStorage.removeItem(storageKeyForDay());
-    state = loadState();
-    applyOperatorMode(state.operator);
-    renderChecklist();
-    notesEl.value = state.notes || "";
-    setSavedPill("💾 Guardado");
-  });
-
-  // =========================
-  // Buscador simple (filtra tarjetas)
-  // =========================
-  const q = $('#q');
+  const q = document.getElementById('q');
   const cards = Array.from(document.querySelectorAll('#cards .card'));
+
   function filterCards(){
     const t = (q.value || '').trim().toLowerCase();
     cards.forEach(c=>{
@@ -775,47 +501,22 @@
   }
   q.addEventListener('input', filterCards);
 
-  // =========================
-  // Atajos de teclado
-  // =========================
-  const LINKS = {
-    "1": "https://marcianoper.github.io/mostrador-vdc360/",
-    "2": "https://marcianoper.github.io/notascreditocvc/",
-    "3": "https://marcianoper.github.io/hoja-viaje-vdc360/"
-  };
-
-  function isTypingTarget(el){
-    if(!el) return false;
-    const tag = (el.tagName || '').toLowerCase();
-    return tag === 'input' || tag === 'textarea' || el.isContentEditable;
-  }
-
   window.addEventListener('keydown', (e)=>{
     const isMac = navigator.platform.toLowerCase().includes('mac');
     const cmdk = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
-
     if(cmdk){
       e.preventDefault();
       q.focus();
       q.select();
-      return;
     }
-
     if(e.key === 'Escape'){
       if(document.activeElement === q){
         q.blur();
         q.value = '';
         filterCards();
       }
-      return;
-    }
-
-    // Atajos 1/2/3 (solo si NO estás escribiendo)
-    if(!e.metaKey && !e.ctrlKey && !e.altKey && LINKS[e.key] && !isTypingTarget(document.activeElement)){
-      window.location.href = LINKS[e.key];
     }
   });
-
 </script>
 
 </body>
