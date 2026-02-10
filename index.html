@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>VDC 360° — Central</title>
 
+  <!-- (Opcional) Supabase v1, mismo que tus otros módulos -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.6/dist/umd/supabase.min.js"></script>
+
   <style>
     :root{
       --brand:#0a7a3b;
@@ -17,6 +20,11 @@
       --shadow:0 18px 50px rgba(2,6,23,.10);
       --shadow2:0 10px 24px rgba(2,6,23,.10);
       --r:18px;
+
+      --danger:#b91c1c;
+      --warn:#b45309;
+      --ok:#0a7a3b;
+      --dark:#0b1220;
     }
     *{box-sizing:border-box}
     body{
@@ -28,8 +36,20 @@
         var(--bg);
       color:var(--ink);
     }
+    body.dark{
+      --bg:#020617;
+      --card:#0b1220;
+      --ink:#e5e7eb;
+      --muted:#94a3b8;
+      --line:rgba(148,163,184,.18);
+      background:
+        radial-gradient(1200px 500px at 18% -10%, rgba(15,154,82,.18), transparent 55%),
+        radial-gradient(900px 420px at 98% 10%, rgba(10,122,59,.16), transparent 55%),
+        var(--bg);
+    }
+
     a{color:inherit}
-    .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
 
     /* Header */
     header{
@@ -37,6 +57,10 @@
       backdrop-filter:saturate(140%) blur(10px);
       background:rgba(246,247,248,.72);
       border-bottom:1px solid rgba(229,231,235,.75);
+    }
+    body.dark header{
+      background:rgba(2,6,23,.65);
+      border-bottom:1px solid rgba(148,163,184,.15);
     }
     .topbar{
       display:flex;
@@ -56,6 +80,7 @@
       display:grid; place-items:center;
       color:#fff; font-weight:1000;
       letter-spacing:.5px;
+      user-select:none;
     }
     .title{
       display:flex; flex-direction:column; line-height:1.1;
@@ -79,6 +104,11 @@
       padding:10px 12px;
       box-shadow:0 8px 18px rgba(2,6,23,.06);
     }
+    body.dark .searchBox{
+      background:rgba(11,18,32,.85);
+      border:1px solid rgba(148,163,184,.18);
+      box-shadow:0 8px 18px rgba(0,0,0,.25);
+    }
     .searchBox svg{flex:0 0 auto}
     .searchBox input{
       width:100%;
@@ -89,6 +119,7 @@
       font-weight:800;
       color:var(--ink);
     }
+
     .chip{
       display:inline-flex;
       align-items:center;
@@ -100,12 +131,37 @@
       font-weight:1000;
       font-size:12px;
       white-space:nowrap;
+      border:1px solid rgba(10,122,59,.14);
+      user-select:none;
+    }
+    body.dark .chip{
+      background:rgba(10,122,59,.16);
+      border:1px solid rgba(10,122,59,.22);
     }
 
-    /* Hero */
-    .hero{
-      padding:18px 0 10px;
+    .hdrRight{
+      display:flex; gap:10px; align-items:center;
     }
+    .iconBtn{
+      border:none;
+      background:rgba(255,255,255,.8);
+      border:1px solid var(--line);
+      color:var(--ink);
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight:1000;
+      cursor:pointer;
+      box-shadow:0 8px 18px rgba(2,6,23,.06);
+    }
+    body.dark .iconBtn{
+      background:rgba(11,18,32,.85);
+      border:1px solid rgba(148,163,184,.18);
+      box-shadow:0 8px 18px rgba(0,0,0,.25);
+    }
+    .iconBtn:active{transform:translateY(1px)}
+
+    /* Hero */
+    .hero{ padding:18px 0 10px; }
     .heroGrid{
       display:grid;
       grid-template-columns: 1.3fr .7fr;
@@ -148,10 +204,9 @@
       line-height:1.45;
       max-width:62ch;
     }
-    .heroMini{
-      display:grid;
-      gap:12px;
-    }
+
+    .heroMini{ display:grid; gap:12px; }
+
     .miniStats{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
@@ -159,28 +214,45 @@
       padding:14px;
       box-shadow:var(--shadow2);
     }
-    .miniStats .kpiRow{
+    body.dark .miniStats{
+      background:rgba(11,18,32,.85);
+      border:1px solid rgba(148,163,184,.18);
+      box-shadow:0 10px 24px rgba(0,0,0,.28);
+    }
+    .miniStats .note{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      margin:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .kpiRow{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+      grid-template-columns: repeat(4, minmax(0,1fr));
       gap:10px;
       margin-top:10px;
     }
+    @media (max-width:900px){ .kpiRow{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
     .kpi{
       border:1px solid rgba(229,231,235,.9);
       border-radius:18px;
       padding:10px;
-      background:#fff;
+      background:rgba(255,255,255,.92);
+    }
+    body.dark .kpi{
+      border:1px solid rgba(148,163,184,.16);
+      background:rgba(2,6,23,.25);
     }
     .kpi .t{font-size:11px;color:var(--muted);font-weight:1000}
     .kpi .v{margin-top:6px;font-size:15px;font-weight:1000;color:var(--ink)}
-    .miniStats .note{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-      margin:0;
-    }
+    .kpi .s{margin-top:6px;font-size:12px;font-weight:900;color:var(--muted)}
 
-    /* Cards */
+    /* Sections */
     main{padding:10px 0 20px}
     .grid{
       display:grid;
@@ -200,6 +272,7 @@
       overflow:hidden;
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
+    body.dark .card{ border:1px solid rgba(148,163,184,.14); }
     .card:hover{
       transform: translateY(-2px);
       box-shadow:0 18px 48px rgba(2,6,23,.14);
@@ -217,6 +290,7 @@
       color:#fff; font-weight:1000;
       box-shadow:0 12px 22px rgba(2,6,23,.18);
       flex:0 0 auto;
+      user-select:none;
     }
     .i1{ background:linear-gradient(135deg,#0ea5e9,#2563eb); }
     .i2{ background:linear-gradient(135deg,#f97316,#ef4444); }
@@ -248,25 +322,33 @@
       gap:6px;
       padding:8px 10px;
       border-radius:999px;
-      background:#f3f4f6;
-      color:#111827;
+      background:rgba(148,163,184,.12);
+      color:var(--ink);
       font-weight:1000;
       font-size:12px;
-      border:1px solid #e5e7eb;
+      border:1px solid rgba(148,163,184,.18);
+      user-select:none;
     }
     .tag.green{
-      background:rgba(10,122,59,.10);
+      background:rgba(10,122,59,.12);
       color:var(--brand);
-      border-color: rgba(10,122,59,.16);
+      border-color: rgba(10,122,59,.18);
+    }
+    .tag.red{
+      background:rgba(185,28,28,.12);
+      color:var(--danger);
+      border-color: rgba(185,28,28,.18);
+    }
+    .tag.amber{
+      background:rgba(180,83,9,.12);
+      color:var(--warn);
+      border-color: rgba(180,83,9,.18);
     }
 
-    .btnRow{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-    }
+    .btnRow{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
       flex:1;
+      min-width: 150px;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -279,24 +361,82 @@
       border-radius:16px;
       box-shadow:0 10px 20px rgba(10,122,59,.20);
       transition: filter .16s ease, transform .16s ease;
+      border:none;
+      cursor:pointer;
     }
     .btn:hover{ filter:brightness(1.06); transform: translateY(-1px); }
     .btn.secondary{
       background:#111827;
       box-shadow:0 10px 20px rgba(17,24,39,.18);
     }
+    body.dark .btn.secondary{ background:#0f172a; }
+
+    .btn.tiny{
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:13px;
+      min-width: auto;
+      flex:0 0 auto;
+    }
+
+    /* Alerts + Activity */
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      margin-top:14px;
+    }
+    @media (max-width:980px){ .twoCol{ grid-template-columns:1fr; } }
+
+    .list{
+      margin-top:10px;
+      display:grid;
+      gap:10px;
+    }
+    .item{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.18);
+      background:rgba(255,255,255,.70);
+      font-weight:900;
+      font-size:13px;
+    }
+    body.dark .item{
+      background:rgba(2,6,23,.22);
+      border:1px solid rgba(148,163,184,.14);
+    }
+    .item small{ color:var(--muted); font-weight:900; }
+
+    textarea{
+      width:100%;
+      resize:vertical;
+      min-height:88px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.22);
+      background:rgba(255,255,255,.85);
+      padding:12px;
+      font-weight:900;
+      color:var(--ink);
+      outline:none;
+    }
+    body.dark textarea{
+      background:rgba(11,18,32,.75);
+      border:1px solid rgba(148,163,184,.16);
+    }
 
     footer{
       text-align:center;
       color:var(--muted);
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
       padding:12px 0 26px;
     }
 
     /* Tiny helper for search */
     .hide{ display:none !important; }
-
   </style>
 </head>
 
@@ -324,7 +464,11 @@
         </div>
       </div>
 
-      <span class="chip">✅ Operación sin fricción</span>
+      <div class="hdrRight">
+        <button class="iconBtn" id="darkBtn" title="Modo bodega">🌙</button>
+        <button class="iconBtn" id="refreshBtn" title="Actualizar datos">↻</button>
+        <span class="chip" id="connChip">🔌 Demo</span>
+      </div>
     </div>
   </div>
 </header>
@@ -342,25 +486,40 @@
 
       <div class="heroMini">
         <div class="miniStats">
-          <p class="note">Atajos rápidos</p>
+          <p class="note">KPIs del día <span id="todayLabel" class="chip" style="padding:6px 10px;">—</span></p>
           <div class="kpiRow">
-            <div class="kpi"><div class="t">Buscar</div><div class="v">⌘/Ctrl + K</div></div>
-            <div class="kpi"><div class="t">Abrir</div><div class="v">Enter</div></div>
-            <div class="kpi"><div class="t">Salir</div><div class="v">Esc</div></div>
+            <div class="kpi">
+              <div class="t">Tickets mostrador</div>
+              <div class="v" id="kpiTickets">—</div>
+              <div class="s" id="kpiTicketsS">hoy</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Kg enviados</div>
+              <div class="v" id="kpiKg">—</div>
+              <div class="s" id="kpiKgS">hoy</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Notas abiertas</div>
+              <div class="v" id="kpiNotas">—</div>
+              <div class="s" id="kpiNotasS">pendientes</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Viajes</div>
+              <div class="v" id="kpiViajes">—</div>
+              <div class="s" id="kpiViajesS">registrados</div>
+            </div>
           </div>
         </div>
 
         <div class="miniStats">
-          <p class="note">Tip operativo</p>
-          <div class="kpiRow" style="grid-template-columns:1fr;">
-            <div class="kpi">
-              <div class="t">Recomendación</div>
-              <div class="v" style="font-size:13px;font-weight:900;color:#111827">
-                Mantén esta pestaña fija como “Inicio” en el navegador.
-              </div>
-            </div>
+          <p class="note">Atajos rápidos</p>
+          <div class="kpiRow" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+            <div class="kpi"><div class="t">Buscar</div><div class="v">⌘/Ctrl + K</div></div>
+            <div class="kpi"><div class="t">Abrir</div><div class="v">Enter</div></div>
+            <div class="kpi"><div class="t">Limpiar</div><div class="v">Esc</div></div>
           </div>
         </div>
+
       </div>
 
     </div>
@@ -368,9 +527,41 @@
 </section>
 
 <main class="wrap">
+
+  <!-- Alertas + Actividad -->
+  <div class="twoCol">
+    <section class="miniStats">
+      <p class="note">⚠️ Alertas operativas <span class="chip" id="alertsCount">—</span></p>
+      <div class="list" id="alertsList"></div>
+      <div class="btnRow" style="margin-top:12px">
+        <button class="btn secondary tiny" id="btnClearAlerts">Marcar como visto</button>
+      </div>
+    </section>
+
+    <section class="miniStats">
+      <p class="note">🕘 Actividad reciente <span class="chip" id="activityCount">—</span></p>
+      <div class="list" id="activityList"></div>
+      <div class="btnRow" style="margin-top:12px">
+        <button class="btn secondary tiny" id="btnClearActivity">Limpiar actividad</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Nota operativa del día -->
+  <section class="miniStats" style="margin-top:16px">
+    <p class="note">📝 Nota operativa del día <span class="chip" id="noteSaved">—</span></p>
+    <textarea id="dailyNote" placeholder="Ej: Hoy priorizar menudos / pendientes: cierre mostrador / ojo con cliente X..."></textarea>
+    <div class="btnRow" style="margin-top:12px">
+      <button class="btn tiny" id="saveNoteBtn">Guardar</button>
+      <button class="btn secondary tiny" id="clearNoteBtn">Borrar</button>
+      <button class="btn secondary tiny" id="copyNoteBtn">Copiar</button>
+    </div>
+  </section>
+
+  <!-- Tarjetas módulos -->
   <div class="grid" id="cards">
 
-    <section class="card" data-key="mostrador envios devoluciones registro">
+    <section class="card" data-key="mostrador envios devoluciones registro tickets kilos cierre">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
           <div class="icon i1">🛒</div>
@@ -379,7 +570,7 @@
             <div class="desc">Envíos a mostrador y control operativo del día.</div>
             <div class="metaRow">
               <span class="tag green">Módulo clave</span>
-              <span class="tag">Totales del día</span>
+              <span class="tag" id="stMostrador">⏳ Cargando…</span>
             </div>
           </div>
         </div>
@@ -387,11 +578,11 @@
 
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/mostrador-vdc360/">Entrar</a>
-        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/mostrador-vdc360/?quick=whatsapp">Acción rápida</a>
       </div>
     </section>
 
-    <section class="card" data-key="notas credito clientes cierre">
+    <section class="card" data-key="notas credito clientes cierre pendientes whatsapp">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
           <div class="icon i2">🧾</div>
@@ -400,7 +591,7 @@
             <div class="desc">Generación, uso y cierre rápido de notas.</div>
             <div class="metaRow">
               <span class="tag green">Control</span>
-              <span class="tag">Historial</span>
+              <span class="tag" id="stNotas">⏳ Cargando…</span>
             </div>
           </div>
         </div>
@@ -408,11 +599,11 @@
 
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/notascreditocvc/">Entrar</a>
-        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/notascreditocvc/?quick=nueva">Acción rápida</a>
       </div>
     </section>
 
-    <section class="card" data-key="hoja viaje registro tandas camiones">
+    <section class="card" data-key="hoja viaje registro tandas camiones produccion apertura cierre">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
           <div class="icon i3">🚚</div>
@@ -421,7 +612,7 @@
             <div class="desc">Registro por tandas, totales diarios y control de viaje.</div>
             <div class="metaRow">
               <span class="tag green">Producción</span>
-              <span class="tag">Tandas</span>
+              <span class="tag" id="stViaje">⏳ Cargando…</span>
             </div>
           </div>
         </div>
@@ -429,49 +620,58 @@
 
       <div class="btnRow">
         <a class="btn" href="https://marcianoper.github.io/hoja-viaje-vdc360/">Entrar</a>
-        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/hoja-viaje-vdc360/?quick=pesada">Acción rápida</a>
       </div>
     </section>
 
   </div>
+
 </main>
 
 <footer>
   VDC 360° — Central · Operación sin fricción · <span style="color:#0a7a3b;font-weight:1000;">Marciano mode ✅</span>
+  <span id="footerMeta"></span>
 </footer>
 
 <script>
-  // Buscador simple (filtra tarjetas)
-  const q = document.getElementById('q');
-  const cards = Array.from(document.querySelectorAll('#cards .card'));
+  /*********************************************************
+   * CONFIG — pega tus keys aquí (si no, queda modo demo)
+   *********************************************************/
+  const SUPABASE_URL = "";      // <-- pega tu URL
+  const SUPABASE_ANON_KEY = ""; // <-- pega tu anon key
 
-  function filterCards(){
-    const t = (q.value || '').trim().toLowerCase();
-    cards.forEach(c=>{
-      const key = (c.getAttribute('data-key') || '').toLowerCase();
-      c.classList.toggle('hide', t && !key.includes(t));
-    });
+  // Recomendación: ajusta nombres de tablas a tus reales
+  const TABLES = {
+    mostrador: "envios_mostrador",   // debe tener: fecha, kilos (o neto_kilos), created_at
+    notas:     "notas_credito",      // debe tener: estado (abierta/cerrada), created_at
+    viajes:    "hoja_viaje"          // o la tabla que uses para viajes
+  };
+
+  /*********************************************************
+   * Helpers
+   *********************************************************/
+  const $ = (id)=>document.getElementById(id);
+  const tz = "America/Mexico_City";
+
+  function ymd(d){
+    const dt = new Date(d);
+    const yyyy = dt.getFullYear();
+    const mm = String(dt.getMonth()+1).padStart(2,'0');
+    const dd = String(dt.getDate()).padStart(2,'0');
+    return `${yyyy}-${mm}-${dd}`;
   }
-  q.addEventListener('input', filterCards);
 
-  // Atajo Ctrl/⌘ + K
-  window.addEventListener('keydown', (e)=>{
-    const isMac = navigator.platform.toLowerCase().includes('mac');
-    const cmdk = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
-    if(cmdk){
-      e.preventDefault();
-      q.focus();
-      q.select();
-    }
-    if(e.key === 'Escape'){
-      if(document.activeElement === q){
-        q.blur();
-        q.value = '';
-        filterCards();
-      }
-    }
-  });
-</script>
+  function todayLocal(){
+    // hoy en hora local (aprox) usando offset del navegador
+    return ymd(new Date());
+  }
 
-</body>
-</html>
+  function fmtNum(n){
+    if(n === null || n === undefined) return "—";
+    const x = Number(n);
+    if(Number.isNaN(x)) return "—";
+    return x.toLocaleString("es-MX");
+  }
+
+  function setConn(label, ok){
+    const chip = $("con
