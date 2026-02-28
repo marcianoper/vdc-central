@@ -232,6 +232,7 @@
     .i3{ background:linear-gradient(135deg,#10b981,#0a7a3b); }
     .i4{ background:linear-gradient(135deg,#22c55e,#15803d); } /* limpieza */
     .i5{ background:linear-gradient(135deg,#a78bfa,#6d28d9); } /* producción */
+    .i6{ background:linear-gradient(135deg,#f59e0b,#b45309); } /* ✅ cajas */
 
     .card h2{
       margin:0;
@@ -315,7 +316,6 @@
     <div class="topbar">
       <div class="brand">
         <div class="logo">
-          <!-- ✅ Cambia ./logo.png por la ruta real si lo pones en otra carpeta -->
           <img src="./logo.png" alt="Logo VDC 360°" />
         </div>
         <div class="title">
@@ -330,7 +330,7 @@
             <path d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
               stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza)" />
+          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza, cajas)" />
           <span class="chip">Ctrl / ⌘ + K</span>
         </div>
       </div>
@@ -480,8 +480,28 @@
         <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
-      
 
+    <!-- ✅ NUEVO: CAJAS MENUDO -->
+    <section class="card" data-key="cajas menudo conteo entradas cierre inventario cf si resumen">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i6">📦</div>
+          <div>
+            <h2>Cajas Menudo (Entrada + Conteo)</h2>
+            <div class="desc">Registro de entradas y conteo final diario por marca.</div>
+            <div class="metaRow">
+              <span class="tag green">Inventario</span>
+              <span class="tag">Entradas / CF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <!-- ✅ PON AQUÍ TU LINK REAL DEL MÓDULO DE CAJAS -->
+        <a class="btn" href="https://marcianoper.github.io/cajas-menudo-vdc360/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
 
   </div>
 </main>
