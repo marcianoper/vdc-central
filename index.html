@@ -50,7 +50,7 @@
       min-width:260px;
     }
 
-    /* ✅ Logo (imagen) */
+    /* Logo */
     .logo{
       width:44px;height:44px;border-radius:14px;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
@@ -232,7 +232,8 @@
     .i3{ background:linear-gradient(135deg,#10b981,#0a7a3b); }
     .i4{ background:linear-gradient(135deg,#22c55e,#15803d); } /* limpieza */
     .i5{ background:linear-gradient(135deg,#a78bfa,#6d28d9); } /* producción */
-    .i6{ background:linear-gradient(135deg,#f59e0b,#b45309); } /* ✅ cajas */
+    .i6{ background:linear-gradient(135deg,#f59e0b,#b45309); } /* cajas */
+    .i7{ background:linear-gradient(135deg,#ef4444,#991b1b); } /* almuerzos */
 
     .card h2{
       margin:0;
@@ -330,7 +331,7 @@
             <path d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
               stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza, cajas)" />
+          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza, cajas, almuerzos)" />
           <span class="chip">Ctrl / ⌘ + K</span>
         </div>
       </div>
@@ -346,8 +347,8 @@
       <div class="heroCard">
         <h1>Todo tu sistema en un solo lugar.</h1>
         <p>
-          Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Hojas/Limpieza y Producción.
-          Diseñado para operación: limpio, directo y sin perder tiempo.
+          Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Hojas/Limpieza, Producción,
+          Cajas de Menudo y Hora de Almuerzos. Diseñado para operación: limpio, directo y sin perder tiempo.
         </p>
       </div>
 
@@ -481,7 +482,6 @@
       </div>
     </section>
 
-    <!-- ✅ NUEVO: CAJAS MENUDO -->
     <section class="card" data-key="cajas menudo conteo entradas cierre inventario cf si resumen">
       <div class="cardTop">
         <div style="display:flex; gap:12px; align-items:flex-start;">
@@ -497,9 +497,28 @@
         </div>
       </div>
       <div class="btnRow">
-        <!-- ✅ PON AQUÍ TU LINK REAL DEL MÓDULO DE CAJAS -->
         <a class="btn" href="https://marcianoper.github.io/vdc360_cmenudo/">Entrar</a>
         <a class="btn secondary" href="https://marcianoper.github.io/vdc360_cmenudo/">Inicio</a>
+      </div>
+    </section>
+
+    <section class="card" data-key="almuerzos comida descanso horario personal registro">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i7">🍽️</div>
+          <div>
+            <h2>Hora de Almuerzos</h2>
+            <div class="desc">Registro del horario de almuerzo del personal y control de descansos.</div>
+            <div class="metaRow">
+              <span class="tag green">Personal</span>
+              <span class="tag">Control horario</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/comida.html/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
       </div>
     </section>
 
