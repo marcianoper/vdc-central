@@ -29,7 +29,7 @@
       color:var(--ink);
     }
     a{color:inherit}
-    .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
 
     header{
       position:sticky; top:0; z-index:20;
@@ -43,6 +43,7 @@
       justify-content:space-between;
       gap:14px;
       padding:14px 0;
+      flex-wrap:wrap;
     }
     .brand{
       display:flex; align-items:center; gap:12px;
@@ -75,6 +76,7 @@
       flex:1;
       display:flex;
       justify-content:center;
+      min-width:280px;
     }
     .searchBox{
       width:min(520px, 100%);
@@ -220,6 +222,7 @@
       color:#fff; font-weight:1000;
       box-shadow:0 12px 22px rgba(2,6,23,.18);
       flex:0 0 auto;
+      font-size:20px;
     }
 
     .i1{ background:linear-gradient(135deg,#0ea5e9,#2563eb); }
@@ -230,6 +233,8 @@
     .i6{ background:linear-gradient(135deg,#f59e0b,#b45309); }
     .i7{ background:linear-gradient(135deg,#ef4444,#991b1b); }
     .i8{ background:linear-gradient(135deg,#14b8a6,#0f766e); }
+    .i9{ background:linear-gradient(135deg,#06b6d4,#0284c7); }
+    .i10{ background:linear-gradient(135deg,#8b5cf6,#7c3aed); }
 
     .card h2{
       margin:0;
@@ -327,7 +332,7 @@
             <path d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
               stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza, cajas, almuerzos, costos)" />
+          <input id="q" type="text" placeholder="Buscar módulo… (mostrador, notas, viaje, producción, limpieza, cajas, almuerzos, costos, ventas, factura)" />
           <span class="chip">Ctrl / ⌘ + K</span>
         </div>
       </div>
@@ -344,7 +349,8 @@
         <h1>Todo tu sistema en un solo lugar.</h1>
         <p>
           Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Hojas/Limpieza, Producción,
-          Cajas de Menudo, Hora de Almuerzos y Costos. Diseñado para operación: limpio, directo y sin perder tiempo.
+          Cajas de Menudo, Hora de Almuerzos, Costos, Ventas del Día y Facturación.
+          Diseñado para operación: limpio, directo y sin perder tiempo.
         </p>
       </div>
 
@@ -538,6 +544,46 @@
       </div>
     </section>
 
+    <section class="card" data-key="ventas ventas del dia resumen ingresos cobrado cuentas por cobrar utilidad">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i9">📊</div>
+          <div>
+            <h2>Ventas del Día</h2>
+            <div class="desc">Visualización de ventas totales, ingresos, cobrado y cuentas por cobrar.</div>
+            <div class="metaRow">
+              <span class="tag green">Ventas</span>
+              <span class="tag">Resumen diario</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/vdc-ventas/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
+    <section class="card" data-key="factura facturacion clientes comprobantes ingresos fiscales cfdi">
+      <div class="cardTop">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div class="icon i10">🧮</div>
+          <div>
+            <h2>Facturación</h2>
+            <div class="desc">Generación de facturas y control de comprobantes fiscales.</div>
+            <div class="metaRow">
+              <span class="tag green">Fiscal</span>
+              <span class="tag">Control CFDI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="https://marcianoper.github.io/vdc-factura/">Entrar</a>
+        <a class="btn secondary" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -556,21 +602,32 @@
       c.classList.toggle('hide', t && !key.includes(t));
     });
   }
+
   q.addEventListener('input', filterCards);
 
   window.addEventListener('keydown', (e)=>{
     const isMac = navigator.platform.toLowerCase().includes('mac');
     const cmdk = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
+
     if(cmdk){
       e.preventDefault();
       q.focus();
       q.select();
     }
+
     if(e.key === 'Escape'){
       if(document.activeElement === q){
         q.blur();
         q.value = '';
         filterCards();
+      }
+    }
+
+    if(e.key === 'Enter' && document.activeElement === q){
+      const visibleCard = cards.find(c => !c.classList.contains('hide'));
+      if(visibleCard){
+        const link = visibleCard.querySelector('.btn');
+        if(link) window.location.href = link.href;
       }
     }
   });
