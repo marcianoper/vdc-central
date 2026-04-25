@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -18,6 +19,7 @@
       --shadow2:0 10px 24px rgba(2,6,23,.10);
       --r:18px;
       --danger:#b91c1c;
+      --warn:#b45309;
     }
     *{box-sizing:border-box}
     body{
@@ -137,9 +139,9 @@
     .hero{ padding:18px 0 10px; }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.3fr .7fr;
+      grid-template-columns: 1.25fr .75fr;
       gap:14px;
-      align-items:stretch;
+      align-items:start;
     }
     @media (max-width:900px){ .heroGrid{ grid-template-columns:1fr; } }
 
@@ -152,6 +154,7 @@
       border:1px solid rgba(255,255,255,.14);
       overflow:hidden;
       position:relative;
+      min-height:160px;
     }
     .heroCard:before{
       content:"";
@@ -179,8 +182,8 @@
     }
 
     .heroMini{ display:grid; gap:12px; }
-    .miniStats{
-      background:rgba(255,255,255,.85);
+    .miniStats, .quickNotes{
+      background:rgba(255,255,255,.88);
       border:1px solid var(--line);
       border-radius:22px;
       padding:14px;
@@ -207,6 +210,154 @@
     .kpi .t{font-size:11px;color:var(--muted);font-weight:1000}
     .kpi .v{margin-top:6px;font-size:15px;font-weight:1000;color:var(--ink)}
     @media (max-width:900px){ .miniStats .kpiRow{ grid-template-columns:1fr; } }
+
+    .quickNotesHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .quickNotesHead h2{
+      margin:0;
+      font-size:15px;
+      font-weight:1000;
+    }
+    .quickNotesHead span{
+      font-size:11px;
+      color:var(--brand);
+      font-weight:1000;
+      background:rgba(10,122,59,.10);
+      border:1px solid rgba(10,122,59,.16);
+      padding:6px 9px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .noteForm{
+      display:grid;
+      gap:8px;
+    }
+    .noteForm input,
+    .noteForm textarea,
+    .noteTools input{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 11px;
+      outline:none;
+      font:inherit;
+      font-size:13px;
+      font-weight:800;
+      color:var(--ink);
+      background:#fff;
+    }
+    .noteForm textarea{
+      min-height:86px;
+      resize:vertical;
+      line-height:1.4;
+    }
+    .noteForm input:focus,
+    .noteForm textarea:focus,
+    .noteTools input:focus{
+      border-color:rgba(10,122,59,.40);
+      box-shadow:0 0 0 4px rgba(10,122,59,.10);
+    }
+    .noteActions{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:8px;
+    }
+    .smallBtn{
+      border:none;
+      cursor:pointer;
+      border-radius:14px;
+      padding:10px 12px;
+      font-size:12px;
+      font-weight:1000;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      box-shadow:0 8px 16px rgba(10,122,59,.18);
+    }
+    .smallBtn.dark{ background:#111827; box-shadow:none; }
+    .smallBtn.danger{ background:var(--danger); box-shadow:none; }
+    .smallBtn.light{
+      background:#f3f4f6;
+      color:#111827;
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+    .noteTools{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px;
+    }
+    @media (max-width:520px){ .noteTools{ grid-template-columns:1fr; } }
+    .noteList{
+      display:grid;
+      gap:8px;
+      margin-top:10px;
+      max-height:270px;
+      overflow:auto;
+      padding-right:2px;
+    }
+    .noteItem{
+      background:#fff;
+      border:1px solid rgba(229,231,235,.95);
+      border-radius:16px;
+      padding:10px;
+    }
+    .noteItemTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:8px;
+      margin-bottom:6px;
+    }
+    .noteItem b{
+      font-size:13px;
+      font-weight:1000;
+    }
+    .noteDate{
+      font-size:11px;
+      color:var(--muted);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+    .noteText{
+      white-space:pre-wrap;
+      font-size:12px;
+      color:#334155;
+      line-height:1.38;
+      font-weight:750;
+    }
+    .noteEmpty{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      border:1px dashed var(--line);
+      border-radius:16px;
+      padding:14px;
+      background:#fff;
+    }
+    .noteItemBtns{
+      display:flex;
+      gap:6px;
+      margin-top:9px;
+      justify-content:flex-end;
+    }
+    .miniIconBtn{
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:7px 9px;
+      background:#f3f4f6;
+      color:#111827;
+      font-size:11px;
+      font-weight:1000;
+    }
+    .miniIconBtn.danger{ color:var(--danger); background:rgba(185,28,28,.08); }
 
     main{padding:10px 0 20px}
     .grid{
@@ -401,6 +552,34 @@
             </div>
           </div>
         </div>
+
+        <aside class="quickNotes" aria-label="Notas rápidas">
+          <div class="quickNotesHead">
+            <h2>📝 Notas rápidas</h2>
+            <span>Guardado local</span>
+          </div>
+
+          <div class="noteForm">
+            <input id="noteTitle" type="text" placeholder="Título de la nota, ej. Pendiente de limpieza"/>
+            <textarea id="noteText" placeholder="Escribe una nota rápida para recordar pendientes, avisos o instrucciones..."></textarea>
+            <div class="noteActions">
+              <button class="smallBtn" id="saveNoteBtn" type="button">Guardar nota</button>
+              <button class="smallBtn light" id="clearNoteBtn" type="button">Limpiar</button>
+            </div>
+          </div>
+
+          <div class="noteTools">
+            <input id="noteDateFilter" type="date" title="Consultar notas por fecha"/>
+            <input id="noteSearch" type="text" placeholder="Buscar en notas…"/>
+          </div>
+
+          <div class="noteActions" style="margin-top:8px;">
+            <button class="smallBtn dark" id="todayNotesBtn" type="button">Ver hoy</button>
+            <button class="smallBtn light" id="allNotesBtn" type="button">Ver todas</button>
+          </div>
+
+          <div class="noteList" id="noteList"></div>
+        </aside>
       </div>
 
     </div>
@@ -754,7 +933,189 @@
   });
 
   applyAdminVisibility();
+
+  /* =========================
+     NOTAS RÁPIDAS — LOCALSTORAGE
+     Guarda notas en el navegador.
+     Permite consultar por fecha y buscar por texto.
+  ========================== */
+  const NOTES_KEY = 'vdc360_notas_rapidas';
+
+  const noteTitle = document.getElementById('noteTitle');
+  const noteText = document.getElementById('noteText');
+  const saveNoteBtn = document.getElementById('saveNoteBtn');
+  const clearNoteBtn = document.getElementById('clearNoteBtn');
+  const noteDateFilter = document.getElementById('noteDateFilter');
+  const noteSearch = document.getElementById('noteSearch');
+  const noteList = document.getElementById('noteList');
+  const todayNotesBtn = document.getElementById('todayNotesBtn');
+  const allNotesBtn = document.getElementById('allNotesBtn');
+
+  function todayISO(){
+    const d = new Date();
+    const offset = d.getTimezoneOffset();
+    const local = new Date(d.getTime() - (offset * 60 * 1000));
+    return local.toISOString().slice(0,10);
+  }
+
+  function formatDateTime(iso){
+    try{
+      const d = new Date(iso);
+      return d.toLocaleString('es-MX', {
+        year:'numeric',
+        month:'2-digit',
+        day:'2-digit',
+        hour:'2-digit',
+        minute:'2-digit'
+      });
+    }catch(e){
+      return iso;
+    }
+  }
+
+  function getNotes(){
+    try{
+      return JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
+    }catch(e){
+      return [];
+    }
+  }
+
+  function setNotes(notes){
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+  }
+
+  function clearNoteForm(){
+    noteTitle.value = '';
+    noteText.value = '';
+    noteTitle.focus();
+  }
+
+  function renderNotes(){
+    const notes = getNotes();
+    const selectedDate = noteDateFilter.value;
+    const search = (noteSearch.value || '').trim().toLowerCase();
+
+    let filtered = notes.filter(n => {
+      const matchesDate = selectedDate ? n.date === selectedDate : true;
+      const haystack = `${n.title || ''} ${n.text || ''}`.toLowerCase();
+      const matchesSearch = search ? haystack.includes(search) : true;
+      return matchesDate && matchesSearch;
+    });
+
+    filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    if(!filtered.length){
+      noteList.innerHTML = `<div class="noteEmpty">No hay notas para esta consulta.</div>`;
+      return;
+    }
+
+    noteList.innerHTML = filtered.map(n => `
+      <article class="noteItem">
+        <div class="noteItemTop">
+          <b>${escapeHTML(n.title || 'Nota rápida')}</b>
+          <span class="noteDate">${escapeHTML(formatDateTime(n.createdAt))}</span>
+        </div>
+        <div class="noteText">${escapeHTML(n.text || '')}</div>
+        <div class="noteItemBtns">
+          <button class="miniIconBtn" type="button" onclick="editNote('${n.id}')">Editar</button>
+          <button class="miniIconBtn danger" type="button" onclick="deleteNote('${n.id}')">Eliminar</button>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  function escapeHTML(str){
+    return String(str)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function saveNote(){
+    const title = (noteTitle.value || '').trim();
+    const text = (noteText.value || '').trim();
+
+    if(!title && !text){
+      alert('Escribe una nota antes de guardar.');
+      return;
+    }
+
+    const now = new Date();
+    const notes = getNotes();
+
+    notes.push({
+      id: String(Date.now()),
+      title: title || 'Nota rápida',
+      text,
+      date: todayISO(),
+      createdAt: now.toISOString()
+    });
+
+    setNotes(notes);
+    clearNoteForm();
+
+    if(!noteDateFilter.value){
+      noteDateFilter.value = todayISO();
+    }
+
+    renderNotes();
+  }
+
+  window.deleteNote = function(id){
+    if(!confirm('¿Eliminar esta nota?')) return;
+    const notes = getNotes().filter(n => n.id !== id);
+    setNotes(notes);
+    renderNotes();
+  }
+
+  window.editNote = function(id){
+    const notes = getNotes();
+    const note = notes.find(n => n.id === id);
+    if(!note) return;
+
+    noteTitle.value = note.title || '';
+    noteText.value = note.text || '';
+
+    const remaining = notes.filter(n => n.id !== id);
+    setNotes(remaining);
+    renderNotes();
+    noteText.focus();
+  }
+
+  saveNoteBtn.addEventListener('click', saveNote);
+  clearNoteBtn.addEventListener('click', clearNoteForm);
+  noteDateFilter.addEventListener('change', renderNotes);
+  noteSearch.addEventListener('input', renderNotes);
+
+  todayNotesBtn.addEventListener('click', ()=>{
+    noteDateFilter.value = todayISO();
+    renderNotes();
+  });
+
+  allNotesBtn.addEventListener('click', ()=>{
+    noteDateFilter.value = '';
+    noteSearch.value = '';
+    renderNotes();
+  });
+
+  noteText.addEventListener('keydown', (e)=>{
+    if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+      e.preventDefault();
+      saveNote();
+    }
+  });
+
+  noteDateFilter.value = todayISO();
+  renderNotes();
 </script>
 
 </body>
 </html>
+'''
+
+path = Path('/mnt/data/vdc-central-notas-rapidas.html')
+path.write_text(html, encoding='utf-8')
+path.as_posix()
