@@ -466,6 +466,141 @@
     .card:nth-child(10) { animation-delay: .31s; }
     .card:nth-child(11) { animation-delay: .34s; }
     .card:nth-child(12) { animation-delay: .37s; }
+
+    /* ── AI COMPONENTS VDC ── */
+
+.ai-panel{
+  background:
+    radial-gradient(600px 160px at 0% 0%, rgba(26,107,60,.14), transparent 60%),
+    var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.ai-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.ai-orb{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--green),#54b77b);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-family:'DM Mono', monospace;
+  font-size:12px;
+  font-weight:600;
+  box-shadow:0 12px 24px rgba(26,107,60,.18);
+}
+
+.ai-head h2{
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.2px;
+}
+
+.ai-head p{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.ai-body textarea{
+  width:100%;
+  min-height:86px;
+  resize:vertical;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  font-family:inherit;
+  font-size:13px;
+  outline:none;
+  background:#fff;
+  color:var(--ink);
+}
+
+.ai-body textarea:focus{
+  border-color:var(--green);
+}
+
+.ai-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.ai-btn{
+  border:0;
+  border-radius:10px;
+  background:var(--green);
+  color:#fff;
+  padding:10px 14px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.ai-btn.ghost{
+  background:var(--bg);
+  color:var(--ink);
+  border:1px solid var(--border);
+}
+
+.ai-busy{
+  display:none;
+  align-items:center;
+  gap:10px;
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  font-size:12px;
+  font-weight:600;
+  color:#166534;
+}
+
+.ai-busy.show{
+  display:flex;
+}
+
+.ai-spinner{
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  border:3px solid rgba(26,107,60,.18);
+  border-top-color:var(--green);
+  animation:spinAI .7s linear infinite;
+}
+
+@keyframes spinAI{
+  to{transform:rotate(360deg);}
+}
+
+.ai-answer{
+  display:none;
+  margin-top:12px;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:13px;
+  line-height:1.55;
+  white-space:pre-wrap;
+}
+
+.ai-answer.show{
+  display:block;
+}
   </style>
 </head>
 <body>
@@ -539,6 +674,32 @@
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Módulos administrativos visibles — sesión activa.
   </div>
+
+  <section class="ai-panel" id="aiPanel">
+  <div class="ai-head">
+    <div class="ai-orb">AI</div>
+    <div>
+      <h2>Agente IA VDC 360°</h2>
+      <p>Pregunta sobre kilos, clientes, costos, ventas o producción.</p>
+    </div>
+  </div>
+
+  <div class="ai-body">
+    <textarea id="aiQuestion" placeholder="Ej: ¿Cuántos kilos de cabeza se llevó Josué esta semana?"></textarea>
+
+    <div class="ai-actions">
+      <button class="ai-btn" onclick="preguntarAI()">Preguntar al agente</button>
+      <button class="ai-btn ghost" onclick="limpiarAI()">Limpiar</button>
+    </div>
+
+    <div id="aiBusy" class="ai-busy">
+      <span class="ai-spinner"></span>
+      <span>VDC AI analizando información...</span>
+    </div>
+
+    <div id="aiAnswer" class="ai-answer"></div>
+  </div>
+</section>
 
   <div class="grid" id="cards">
 
@@ -851,7 +1012,68 @@
       if (first) { const link = first.querySelector('.btn-enter'); if (link) window.location.href = link.href; }
     }
   });
+const AI_ENDPOINT = 'https://TU-PROYECTO.supabase.co/functions/v1/vdc-ai-agent';
 
+function mostrarAIBusy(texto='VDC AI analizando información...'){
+  const el = document.getElementById('aiBusy');
+  if(!el) return;
+  el.querySelector('span:last-child').textContent = texto;
+  el.classList.add('show');
+}
+
+function ocultarAIBusy(){
+  const el = document.getElementById('aiBusy');
+  if(!el) return;
+  el.classList.remove('show');
+}
+
+function mostrarRespuestaAI(texto){
+  const el = document.getElementById('aiAnswer');
+  if(!el) return;
+  el.textContent = texto;
+  el.classList.add('show');
+}
+
+function limpiarAI(){
+  document.getElementById('aiQuestion').value = '';
+  document.getElementById('aiAnswer').classList.remove('show');
+  document.getElementById('aiAnswer').textContent = '';
+}
+
+async function preguntarAI(){
+  const pregunta = document.getElementById('aiQuestion').value.trim();
+
+  if(!pregunta){
+    alert('Escribe una pregunta para el agente IA.');
+    return;
+  }
+
+  mostrarAIBusy('Consultando módulos VDC 360°...');
+
+  try{
+    const res = await fetch(AI_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ pregunta })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      throw new Error(data.error || 'No se pudo consultar el agente.');
+    }
+
+    mostrarRespuestaAI(data.respuesta || 'Sin respuesta.');
+  }catch(err){
+    console.error(err);
+    mostrarRespuestaAI(
+      'Todavía falta conectar el backend del agente IA.\n\n' +
+      'Pregunta recibida:\n' + pregunta
+    );
+  }finally{
+    ocultarAIBusy();
+  }
+}
   applyAdmin();
 </script>
 </body>
