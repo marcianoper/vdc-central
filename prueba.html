@@ -32,7 +32,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── HEADER ── */
     header {
       position: sticky; top: 0; z-index: 30;
       background: rgba(245,245,243,.88);
@@ -65,6 +64,7 @@
       overflow: hidden;
       padding: 5px;
     }
+
     .logo img {
       width: 100%; height: 100%;
       object-fit: contain;
@@ -77,6 +77,7 @@
       letter-spacing: -.2px;
       display: block;
     }
+
     .brand-text span {
       font-size: 11px;
       color: var(--muted);
@@ -100,9 +101,9 @@
       padding: 9px 12px;
       transition: border-color .15s;
     }
-    .search-box:focus-within {
-      border-color: var(--green);
-    }
+
+    .search-box:focus-within { border-color: var(--green); }
+
     .search-box input {
       flex: 1;
       border: none;
@@ -112,6 +113,7 @@
       font-family: inherit;
       color: var(--ink);
     }
+
     .search-box input::placeholder { color: var(--muted); }
 
     .kbd {
@@ -141,17 +143,17 @@
       white-space: nowrap;
       transition: all .15s;
     }
+
     .admin-btn:hover { border-color: var(--border2); color: var(--ink); }
+
     .admin-btn.unlocked {
       background: var(--green);
       color: #fff;
       border-color: var(--green);
     }
-    .admin-btn .lock-icon {
-      font-size: 12px;
-    }
 
-    /* ── HERO ── */
+    .admin-btn .lock-icon { font-size: 12px; }
+
     .hero {
       max-width: 1160px;
       margin: 0 auto;
@@ -175,6 +177,7 @@
       align-items: flex-start;
       gap: 14px;
     }
+
     .hero-accent {
       width: 3px;
       height: 44px;
@@ -183,6 +186,7 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
+
     .hero-left h1 {
       font-size: 20px;
       font-weight: 600;
@@ -190,6 +194,7 @@
       line-height: 1.2;
       margin-bottom: 5px;
     }
+
     .hero-left p {
       font-size: 13px;
       color: var(--muted);
@@ -202,6 +207,7 @@
       gap: 8px;
       flex-shrink: 0;
     }
+
     .stat-chip {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -210,6 +216,7 @@
       text-align: center;
       min-width: 68px;
     }
+
     .stat-chip .s-label {
       font-size: 10px;
       color: var(--muted);
@@ -217,6 +224,7 @@
       display: block;
       margin-bottom: 4px;
     }
+
     .stat-chip .s-val {
       font-family: 'DM Mono', monospace;
       font-size: 13px;
@@ -224,7 +232,6 @@
       color: var(--ink);
     }
 
-    /* ── SECTION HEADER ── */
     .wrap {
       max-width: 1160px;
       margin: 0 auto;
@@ -237,6 +244,7 @@
       justify-content: space-between;
       margin: 28px 0 14px;
     }
+
     .section-head h2 {
       font-size: 12px;
       font-weight: 600;
@@ -244,6 +252,7 @@
       letter-spacing: .06em;
       text-transform: uppercase;
     }
+
     .admin-badge {
       font-size: 11px;
       font-weight: 500;
@@ -253,18 +262,23 @@
       border-radius: 5px;
       display: none;
     }
+
     .admin-badge.show { display: inline; }
 
-    /* ── GRID ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
-    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
 
-    /* ── CARD ── */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 580px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -277,6 +291,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .card::before {
       content: "";
       position: absolute;
@@ -286,10 +301,12 @@
       opacity: 0;
       transition: opacity .2s;
     }
+
     .card:hover {
       border-color: var(--border2);
       transform: translateY(-1px);
     }
+
     .card:hover::before { opacity: 1; }
 
     .card[data-accent="blue"]   { --card-accent: #378add; }
@@ -317,6 +334,7 @@
       font-size: 17px;
       flex-shrink: 0;
     }
+
     .icon.blue   { background: #E6F1FB; }
     .icon.orange { background: #FAECE7; }
     .icon.green  { background: #EAF3DE; }
@@ -328,12 +346,14 @@
     .icon.violet { background: #f3e8ff; }
 
     .card-info { flex: 1; min-width: 0; }
+
     .card-info h3 {
       font-size: 14px;
       font-weight: 600;
       letter-spacing: -.1px;
       line-height: 1.3;
     }
+
     .card-info p {
       font-size: 12px;
       color: var(--muted);
@@ -346,12 +366,14 @@
       gap: 5px;
       flex-wrap: wrap;
     }
+
     .tag {
       font-size: 11px;
       font-weight: 500;
       padding: 3px 8px;
       border-radius: 5px;
     }
+
     .tag.green  { background: var(--green-lt); color: #3b6d11; }
     .tag.gray   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
     .tag.admin  { background: #f1efea; color: #6b5f3e; border: 1px solid #e5dfc8; }
@@ -361,6 +383,7 @@
       gap: 7px;
       margin-top: auto;
     }
+
     .btn-enter {
       flex: 1;
       display: flex;
@@ -379,7 +402,9 @@
       transition: background .15s;
       text-decoration: none;
     }
+
     .btn-enter:hover { background: var(--green-dk); }
+
     .btn-home {
       display: flex;
       align-items: center;
@@ -396,9 +421,9 @@
       text-decoration: none;
       transition: all .15s;
     }
+
     .btn-home:hover { border-color: var(--border2); color: var(--ink); }
 
-    /* ── ADMIN STATUS BAR ── */
     .admin-bar {
       display: none;
       background: #fffbeb;
@@ -412,9 +437,9 @@
       align-items: center;
       margin-top: 10px;
     }
+
     .admin-bar.show { display: flex; }
 
-    /* ── FOOTER ── */
     footer {
       max-width: 1160px;
       margin: 0 auto;
@@ -425,16 +450,17 @@
       border-top: 1px solid var(--border);
       margin-top: 32px;
     }
+
     footer span {
       font-size: 12px;
       color: var(--muted);
     }
+
     footer .dot {
       color: var(--green);
       font-weight: 600;
     }
 
-    /* ── EMPTY STATE ── */
     .empty {
       display: none;
       grid-column: 1 / -1;
@@ -446,14 +472,13 @@
 
     .hide { display: none !important; }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .card {
-      animation: fadeUp .28s ease both;
-    }
+
+    .card { animation: fadeUp .28s ease both; }
+
     .card:nth-child(1)  { animation-delay: .04s; }
     .card:nth-child(2)  { animation-delay: .07s; }
     .card:nth-child(3)  { animation-delay: .10s; }
@@ -466,146 +491,11 @@
     .card:nth-child(10) { animation-delay: .31s; }
     .card:nth-child(11) { animation-delay: .34s; }
     .card:nth-child(12) { animation-delay: .37s; }
-
-    /* ── AI COMPONENTS VDC ── */
-
-.ai-panel{
-  background:
-    radial-gradient(600px 160px at 0% 0%, rgba(26,107,60,.14), transparent 60%),
-    var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:18px;
-}
-
-.ai-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.ai-orb{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--green),#54b77b);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-family:'DM Mono', monospace;
-  font-size:12px;
-  font-weight:600;
-  box-shadow:0 12px 24px rgba(26,107,60,.18);
-}
-
-.ai-head h2{
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:-.2px;
-}
-
-.ai-head p{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:3px;
-}
-
-.ai-body textarea{
-  width:100%;
-  min-height:86px;
-  resize:vertical;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px;
-  font-family:inherit;
-  font-size:13px;
-  outline:none;
-  background:#fff;
-  color:var(--ink);
-}
-
-.ai-body textarea:focus{
-  border-color:var(--green);
-}
-
-.ai-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.ai-btn{
-  border:0;
-  border-radius:10px;
-  background:var(--green);
-  color:#fff;
-  padding:10px 14px;
-  font-family:inherit;
-  font-size:12px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.ai-btn.ghost{
-  background:var(--bg);
-  color:var(--ink);
-  border:1px solid var(--border);
-}
-
-.ai-busy{
-  display:none;
-  align-items:center;
-  gap:10px;
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:#f0fdf4;
-  border:1px solid #bbf7d0;
-  font-size:12px;
-  font-weight:600;
-  color:#166534;
-}
-
-.ai-busy.show{
-  display:flex;
-}
-
-.ai-spinner{
-  width:18px;
-  height:18px;
-  border-radius:999px;
-  border:3px solid rgba(26,107,60,.18);
-  border-top-color:var(--green);
-  animation:spinAI .7s linear infinite;
-}
-
-@keyframes spinAI{
-  to{transform:rotate(360deg);}
-}
-
-.ai-answer{
-  display:none;
-  margin-top:12px;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:#fff;
-  font-size:13px;
-  line-height:1.55;
-  white-space:pre-wrap;
-}
-
-.ai-answer.show{
-  display:block;
-}
+    .card:nth-child(13) { animation-delay: .40s; }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="topbar">
     <div class="brand">
@@ -636,14 +526,13 @@
   </div>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-accent"></div>
       <div>
         <h1>Todo tu sistema en un solo lugar.</h1>
-        <p>Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Producción, Cajas de Menudo y más. Los módulos administrativos quedan ocultos por seguridad.</p>
+        <p>Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Producción, Cajas de Menudo, Reportes y más. Los módulos administrativos quedan ocultos por seguridad.</p>
       </div>
     </div>
     <div class="hero-stats">
@@ -663,7 +552,6 @@
   </div>
 </div>
 
-<!-- MAIN -->
 <main class="wrap">
   <div class="section-head">
     <h2>Módulos operativos</h2>
@@ -671,35 +559,11 @@
   </div>
 
   <div class="admin-bar" id="adminBar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
     Módulos administrativos visibles — sesión activa.
   </div>
-
-  <section class="ai-panel" id="aiPanel">
-  <div class="ai-head">
-    <div class="ai-orb">AI</div>
-    <div>
-      <h2>Agente IA VDC 360°</h2>
-      <p>Pregunta sobre kilos, clientes, costos, ventas o producción.</p>
-    </div>
-  </div>
-
-  <div class="ai-body">
-    <textarea id="aiQuestion" placeholder="Ej: ¿Cuántos kilos de cabeza se llevó Josué esta semana?"></textarea>
-
-    <div class="ai-actions">
-      <button class="ai-btn" onclick="preguntarAI()">Preguntar al agente</button>
-      <button class="ai-btn ghost" onclick="limpiarAI()">Limpiar</button>
-    </div>
-
-    <div id="aiBusy" class="ai-busy">
-      <span class="ai-spinner"></span>
-      <span>VDC AI analizando información...</span>
-    </div>
-
-    <div id="aiAnswer" class="ai-answer"></div>
-  </div>
-</section>
 
   <div class="grid" id="cards">
 
@@ -847,7 +711,24 @@
       </div>
     </section>
 
-    <!-- MÓDULOS ADMIN — ocultos por defecto -->
+    <section class="card" data-accent="sky" data-key="reportes reporte resumen general filtrado clientes productos kilos ventas pdf excel analisis">
+      <div class="card-header">
+        <div class="icon sky">📈</div>
+        <div class="card-info">
+          <h3>Reportes</h3>
+          <p>Generación de reportes por fecha, producto, clientes, kilos y resumen general.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag green">Reportes</span>
+        <span class="tag gray">Análisis</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-enter" href="https://marcianoper.github.io/vdc-reportes/">Entrar →</a>
+        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
+      </div>
+    </section>
+
     <section class="card admin-card hide" data-admin="true" data-accent="violet"
       data-key="factura facturacion clientes comprobantes ingresos fiscales cfdi viajes kilos control control de viajes">
       <div class="card-header">
@@ -956,11 +837,14 @@
   function applyAdmin() {
     adminCards.forEach(c => c.classList.toggle('hide', !adminVisible));
     adminToggle.classList.toggle('unlocked', adminVisible);
+
     const lockIcon = adminToggle.querySelector('.lock-icon');
-    lockIcon.textContent  = adminVisible ? '🔓' : '🔒';
+    lockIcon.textContent = adminVisible ? '🔓' : '🔒';
+
     adminBtnTxt.textContent = adminVisible ? 'Ocultar admin' : 'Módulos admin';
     adminBadge.classList.toggle('show', adminVisible);
     adminBar.classList.toggle('show', adminVisible);
+
     filterCards();
   }
 
@@ -970,10 +854,20 @@
 
     cards.forEach(c => {
       const isAdmin = c.getAttribute('data-admin') === 'true';
-      if (isAdmin && !adminVisible) { c.classList.add('hide'); return; }
+
+      if (isAdmin && !adminVisible) {
+        c.classList.add('hide');
+        return;
+      }
+
       const key = (c.getAttribute('data-key') || '').toLowerCase();
-      const hide = Boolean(t) && !key.includes(t);
+      const title = (c.querySelector('h3')?.textContent || '').toLowerCase();
+      const desc = (c.querySelector('p')?.textContent || '').toLowerCase();
+      const fullText = `${key} ${title} ${desc}`;
+
+      const hide = Boolean(t) && !fullText.includes(t);
       c.classList.toggle('hide', hide);
+
       if (!hide) visible++;
     });
 
@@ -988,7 +882,9 @@
       applyAdmin();
       return;
     }
+
     const pass = prompt('Clave de acceso:');
+
     if (pass === ADMIN_PASS) {
       adminVisible = true;
       sessionStorage.setItem('vdc_admin_visible', 'true');
@@ -1003,79 +899,30 @@
   window.addEventListener('keydown', e => {
     const isMac = navigator.platform.toLowerCase().includes('mac');
     const cmdK  = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
-    if (cmdK) { e.preventDefault(); qInput.focus(); qInput.select(); }
-    if (e.key === 'Escape' && document.activeElement === qInput) {
-      qInput.blur(); qInput.value = ''; filterCards();
+
+    if (cmdK) {
+      e.preventDefault();
+      qInput.focus();
+      qInput.select();
     }
+
+    if (e.key === 'Escape' && document.activeElement === qInput) {
+      qInput.blur();
+      qInput.value = '';
+      filterCards();
+    }
+
     if (e.key === 'Enter' && document.activeElement === qInput) {
       const first = cards.find(c => !c.classList.contains('hide'));
-      if (first) { const link = first.querySelector('.btn-enter'); if (link) window.location.href = link.href; }
+      if (first) {
+        const link = first.querySelector('.btn-enter');
+        if (link) window.location.href = link.href;
+      }
     }
   });
-const AI_ENDPOINT = 'https://eqynjddcosvdqjzztznn.supabase.co/functions/v1/Function-name--vdc-ai-agent';
 
-function mostrarAIBusy(texto='VDC AI analizando información...'){
-  const el = document.getElementById('aiBusy');
-  if(!el) return;
-  el.querySelector('span:last-child').textContent = texto;
-  el.classList.add('show');
-}
-
-function ocultarAIBusy(){
-  const el = document.getElementById('aiBusy');
-  if(!el) return;
-  el.classList.remove('show');
-}
-
-function mostrarRespuestaAI(texto){
-  const el = document.getElementById('aiAnswer');
-  if(!el) return;
-  el.textContent = texto;
-  el.classList.add('show');
-}
-
-function limpiarAI(){
-  document.getElementById('aiQuestion').value = '';
-  document.getElementById('aiAnswer').classList.remove('show');
-  document.getElementById('aiAnswer').textContent = '';
-}
-
-async function preguntarAI(){
-  const pregunta = document.getElementById('aiQuestion').value.trim();
-
-  if(!pregunta){
-    alert('Escribe una pregunta para el agente IA.');
-    return;
-  }
-
-  mostrarAIBusy('Consultando módulos VDC 360°...');
-
-  try{
-  const res = await fetch(AI_ENDPOINT,{
-  method:'POST',
-  headers:{
-    'Content-Type':'application/json'
-  },
-  body:JSON.stringify({ pregunta })
-});
-    const data = await res.json();
-
-    if(!res.ok){
-      throw new Error(data.error || 'No se pudo consultar el agente.');
-    }
-
-    mostrarRespuestaAI(data.respuesta || 'Sin respuesta.');
-  }catch(err){
-    console.error(err);
-    mostrarRespuestaAI(
-      'Todavía falta conectar el backend del agente IA.\n\n' +
-      'Pregunta recibida:\n' + pregunta
-    );
-  }finally{
-    ocultarAIBusy();
-  }
-}
   applyAdmin();
 </script>
+
 </body>
 </html>
