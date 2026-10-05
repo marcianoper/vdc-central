@@ -1,928 +1,278 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>VDC 360° — Central</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --green:   #1a6b3c;
-      --green-lt:#eaf3de;
-      --green-dk:#0f4a28;
-      --surface: #ffffff;
-      --bg:      #f5f5f3;
-      --ink:     #141414;
-      --muted:   #6b6b6b;
-      --border:  rgba(20,20,20,.10);
-      --border2: rgba(20,20,20,.18);
-      --r:       12px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    header {
-      position: sticky; top: 0; z-index: 30;
-      background: rgba(245,245,243,.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topbar {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 20px;
-      height: 62px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .logo {
-      width: 36px; height: 36px;
-      border-radius: 9px;
-      background: var(--green);
-      display: grid; place-items: center;
-      overflow: hidden;
-      padding: 5px;
-    }
-
-    .logo img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-    }
-
-    .brand-text b {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -.2px;
-      display: block;
-    }
-
-    .brand-text span {
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    .search-wrap {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
-
-    .search-box {
-      width: min(480px, 100%);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 12px;
-      transition: border-color .15s;
-    }
-
-    .search-box:focus-within { border-color: var(--green); }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      font-size: 13px;
-      font-family: inherit;
-      color: var(--ink);
-    }
-
-    .search-box input::placeholder { color: var(--muted); }
-
-    .kbd {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--muted);
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 2px 6px;
-      white-space: nowrap;
-    }
-
-    .admin-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--muted);
-      font-size: 12px;
-      font-family: inherit;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all .15s;
-    }
-
-    .admin-btn:hover { border-color: var(--border2); color: var(--ink); }
-
-    .admin-btn.unlocked {
-      background: var(--green);
-      color: #fff;
-      border-color: var(--green);
-    }
-
-    .admin-btn .lock-icon { font-size: 12px; }
-
-    .hero {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 28px 20px 0;
-    }
-
-    .hero-inner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .hero-left {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
-    .hero-accent {
-      width: 3px;
-      height: 44px;
-      background: var(--green);
-      border-radius: 2px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .hero-left h1 {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -.3px;
-      line-height: 1.2;
-      margin-bottom: 5px;
-    }
-
-    .hero-left p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 46ch;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .stat-chip {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      text-align: center;
-      min-width: 68px;
-    }
-
-    .stat-chip .s-label {
-      font-size: 10px;
-      color: var(--muted);
-      font-weight: 500;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .stat-chip .s-val {
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .wrap {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 28px 0 14px;
-    }
-
-    .section-head h2 {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    .admin-badge {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--green);
-      background: var(--green-lt);
-      padding: 3px 8px;
-      border-radius: 5px;
-      display: none;
-    }
-
-    .admin-badge.show { display: inline; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 580px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: border-color .15s, transform .15s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--card-accent, transparent);
-      opacity: 0;
-      transition: opacity .2s;
-    }
-
-    .card:hover {
-      border-color: var(--border2);
-      transform: translateY(-1px);
-    }
-
-    .card:hover::before { opacity: 1; }
-
-    .card[data-accent="blue"]   { --card-accent: #378add; }
-    .card[data-accent="orange"] { --card-accent: #d85a30; }
-    .card[data-accent="green"]  { --card-accent: #1a6b3c; }
-    .card[data-accent="purple"] { --card-accent: #7f77dd; }
-    .card[data-accent="amber"]  { --card-accent: #ba7517; }
-    .card[data-accent="red"]    { --card-accent: #e24b4a; }
-    .card[data-accent="teal"]   { --card-accent: #1d9e75; }
-    .card[data-accent="sky"]    { --card-accent: #0284c7; }
-    .card[data-accent="violet"] { --card-accent: #7c3aed; }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-    }
-
-    .icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      flex-shrink: 0;
-    }
-
-    .icon.blue   { background: #E6F1FB; }
-    .icon.orange { background: #FAECE7; }
-    .icon.green  { background: #EAF3DE; }
-    .icon.purple { background: #EEEDFE; }
-    .icon.amber  { background: #FAEEDA; }
-    .icon.red    { background: #FCEBEB; }
-    .icon.teal   { background: #E1F5EE; }
-    .icon.sky    { background: #e0f2fe; }
-    .icon.violet { background: #f3e8ff; }
-
-    .card-info { flex: 1; min-width: 0; }
-
-    .card-info h3 {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -.1px;
-      line-height: 1.3;
-    }
-
-    .card-info p {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-top: 3px;
-    }
-
-    .tags {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 5px;
-    }
-
-    .tag.green  { background: var(--green-lt); color: #3b6d11; }
-    .tag.gray   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
-    .tag.admin  { background: #f1efea; color: #6b5f3e; border: 1px solid #e5dfc8; }
-
-    .btn-row {
-      display: flex;
-      gap: 7px;
-      margin-top: auto;
-    }
-
-    .btn-enter {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 9px 14px;
-      background: var(--green);
-      color: #fff;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: inherit;
-      border: none;
-      cursor: pointer;
-      transition: background .15s;
-      text-decoration: none;
-    }
-
-    .btn-enter:hover { background: var(--green-dk); }
-
-    .btn-home {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 12px;
-      background: var(--bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      font-family: inherit;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all .15s;
-    }
-
-    .btn-home:hover { border-color: var(--border2); color: var(--ink); }
-
-    .admin-bar {
-      display: none;
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 8px;
-      padding: 9px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #92400e;
-      gap: 7px;
-      align-items: center;
-      margin-top: 10px;
-    }
-
-    .admin-bar.show { display: flex; }
-
-    footer {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 20px 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid var(--border);
-      margin-top: 32px;
-    }
-
-    footer span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer .dot {
-      color: var(--green);
-      font-weight: 600;
-    }
-
-    .empty {
-      display: none;
-      grid-column: 1 / -1;
-      padding: 40px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .hide { display: none !important; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .card { animation: fadeUp .28s ease both; }
-
-    .card:nth-child(1)  { animation-delay: .04s; }
-    .card:nth-child(2)  { animation-delay: .07s; }
-    .card:nth-child(3)  { animation-delay: .10s; }
-    .card:nth-child(4)  { animation-delay: .13s; }
-    .card:nth-child(5)  { animation-delay: .16s; }
-    .card:nth-child(6)  { animation-delay: .19s; }
-    .card:nth-child(7)  { animation-delay: .22s; }
-    .card:nth-child(8)  { animation-delay: .25s; }
-    .card:nth-child(9)  { animation-delay: .28s; }
-    .card:nth-child(10) { animation-delay: .31s; }
-    .card:nth-child(11) { animation-delay: .34s; }
-    .card:nth-child(12) { animation-delay: .37s; }
-    .card:nth-child(13) { animation-delay: .40s; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>VDC 360° Central</title>
+<meta name="theme-color" content="#1a6b3c"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1a6b3c; --green-dk:#0f4a28; --green-lt:#eaf3de; --green-ink:#2f5e12;
+    --surface:#fff; --bg:#f5f5f3; --tile:#f1f1ee;
+    --ink:#141414; --muted:#5f5f5f; --faint:#8a8a86;
+    --border:rgba(20,20,20,.10); --border2:rgba(20,20,20,.22);
+    --warn-bg:#fffbeb; --warn-bd:#fde68a; --warn-ink:#92400e;
+    --r:12px; --max:1160px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--green);outline-offset:2px}
+  .hide{display:none!important}
+
+  /* ---------- Barra superior ---------- */
+  header{position:sticky;top:0;z-index:30;background:rgba(245,245,243,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .topbar{max-width:var(--max);margin:0 auto;padding:12px 20px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .logo{width:36px;height:36px;border-radius:9px;background:var(--green);display:grid;place-items:center;padding:5px;flex:none;overflow:hidden}
+  .logo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+  .brand b{display:block;font-size:15px;font-weight:600;letter-spacing:-.2px;white-space:nowrap}
+  .brand span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
+
+  .search{justify-self:center;width:min(480px,100%);display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 12px;height:42px;transition:border-color .15s,box-shadow .15s}
+  .search:focus-within{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,60,.12)}
+  .search svg{flex:none;color:var(--faint)}
+  .search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:15px;color:var(--ink)}
+  .search input::placeholder{color:var(--faint)}
+  .search input::-webkit-search-cancel-button{display:none}
+  .kbd{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:2px 6px;white-space:nowrap}
+  @media (pointer:coarse){.kbd{display:none}}
+
+  .admin-btn{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:border-color .15s,color .15s,background .15s}
+  .admin-btn:hover{border-color:var(--border2);color:var(--ink)}
+  .admin-btn.on{background:var(--green);border-color:var(--green);color:#fff}
+  .admin-btn svg{flex:none}
+
+  /* ---------- Contenido ---------- */
+  main{width:100%;max-width:var(--max);margin:0 auto;padding:8px 20px 0;flex:1}
+  .group{margin-top:24px}
+  .group h2{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .group h2 .count{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0;color:var(--faint);font-weight:500}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+
+  .card{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 14px 14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);transition:border-color .15s,box-shadow .15s}
+  .card:hover{border-color:var(--border2);box-shadow:0 2px 10px rgba(20,20,20,.05)}
+  .card:active{background:#fafaf8}
+  .card .ico{width:44px;height:44px;border-radius:11px;background:var(--tile);display:grid;place-items:center;font-size:21px;flex:none}
+  .card .txt{flex:1;min-width:0}
+  .card h3{font-size:15px;font-weight:600;letter-spacing:-.1px;line-height:1.3}
+  .card p{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
+  .card .go{flex:none;color:var(--faint);transition:color .15s,transform .15s}
+  .card:hover .go{color:var(--green);transform:translateX(2px)}
+  .card.first{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,60,.10)}
+  .card.first .go{color:var(--green)}
+
+  .group.admin h2{color:var(--warn-ink)}
+  .group.admin .card .ico{background:var(--warn-bg)}
+  .admin-note{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--warn-ink);background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:8px;padding:8px 12px;margin-bottom:10px}
+
+  .empty{text-align:center;color:var(--muted);font-size:14px;padding:48px 16px}
+  .empty b{color:var(--ink)}
+  .hint{font-size:12px;color:var(--faint);margin-top:14px;min-height:1em}
+
+  footer{width:calc(100% - 40px);max-width:calc(var(--max) - 40px);margin:40px auto 0;padding:18px 0 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+  footer .dot{color:var(--green)}
+
+  /* ---------- Diálogo de admin ---------- */
+  dialog{margin:auto;border:0;border-radius:16px;padding:0;width:min(360px,calc(100vw - 32px));box-shadow:0 20px 50px rgba(0,0,0,.2)}
+  dialog::backdrop{background:rgba(20,20,20,.35)}
+  .dlg{padding:22px}
+  .dlg h3{font-size:17px;font-weight:600}
+  .dlg p{font-size:13px;color:var(--muted);margin:4px 0 14px}
+  .dlg input{width:100%;height:44px;border:1px solid var(--border2);border-radius:10px;padding:0 12px;font:inherit;font-size:16px}
+  .dlg input:focus{outline:0;border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,60,.12)}
+  .dlg .err{color:#b42318;font-size:13px;min-height:18px;margin-top:6px}
+  .dlg .row{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+  .btn{height:40px;padding:0 16px;border-radius:9px;border:1px solid var(--border);background:var(--surface);font-size:14px;font-weight:500;cursor:pointer}
+  .btn.pri{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+  .btn.pri:hover{background:var(--green-dk)}
+  .btn:disabled{opacity:.6;cursor:wait}
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:640px){
+    .topbar{grid-template-columns:1fr auto;gap:10px 10px;padding:10px 16px}
+    .search{grid-column:1/-1;grid-row:2;width:100%}
+    .brand span{display:none}
+    .admin-btn .lbl{display:none}
+    .admin-btn{width:42px;padding:0;justify-content:center}
+    main{padding:0 16px}
+    .grid{grid-template-columns:1fr;gap:8px}
+    .card{min-height:72px}
+    footer{width:calc(100% - 32px);padding:18px 0 24px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
 <header>
   <div class="topbar">
-    <div class="brand">
-      <div class="logo">
-        <img src="./logo.png" alt="VDC 360°"/>
-      </div>
-      <div class="brand-text">
-        <b>VDC 360° Central</b>
-        <span>Panel de navegación operativa</span>
-      </div>
-    </div>
+    <a class="brand" href="./" aria-label="VDC 360° Central, inicio">
+      <div class="logo"><img src="./logo.png" alt=""/></div>
+      <div><b>VDC 360° Central</b><span>Panel de navegación operativa</span></div>
+    </a>
 
-    <div class="search-wrap">
-      <div class="search-box">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-          <path d="M21 21l-4.35-4.35M16.65 16.65A7 7 0 1 0 5.35 5.35a7 7 0 0 0 11.3 11.3z"
-            stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input id="q" type="text" placeholder="Buscar módulo…" autocomplete="off"/>
-        <span class="kbd">⌘ K</span>
-      </div>
-    </div>
+    <label class="search" for="q">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Buscar módulo…" autocomplete="off" enterkeyhint="go" aria-label="Buscar módulo"/>
+      <span class="kbd" id="kbd">Ctrl K</span>
+    </label>
 
-    <button class="admin-btn" id="adminToggle" type="button">
-      <span class="lock-icon">🔒</span>
-      <span id="adminBtnText">Módulos admin</span>
+    <button class="admin-btn" id="adminBtn" type="button" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5" stroke="currentColor" stroke-width="2"/><path id="shackle" d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="lbl" id="adminLbl">Admin</span>
     </button>
   </div>
 </header>
 
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-accent"></div>
-      <div>
-        <h1>Todo tu sistema en un solo lugar.</h1>
-        <p>Acceso rápido a Mostrador, Notas a Crédito, Hoja de Viaje, Producción, Cajas de Menudo, Reportes y más. Los módulos administrativos quedan ocultos por seguridad.</p>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-chip">
-        <span class="s-label">Buscar</span>
-        <span class="s-val">⌘ K</span>
-      </div>
-      <div class="stat-chip">
-        <span class="s-label">Abrir</span>
-        <span class="s-val">Enter</span>
-      </div>
-      <div class="stat-chip">
-        <span class="s-label">Salir</span>
-        <span class="s-val">Esc</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<main class="wrap">
-  <div class="section-head">
-    <h2>Módulos operativos</h2>
-    <span class="admin-badge" id="adminBadge">+ admin visibles</span>
-  </div>
-
-  <div class="admin-bar" id="adminBar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-      <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    Módulos administrativos visibles — sesión activa.
-  </div>
-
-  <div class="grid" id="cards">
-
-    <section class="card" data-accent="blue" data-key="mostrador envios devoluciones registro ventas">
-      <div class="card-header">
-        <div class="icon blue">🛒</div>
-        <div class="card-info">
-          <h3>Registro Mostrador</h3>
-          <p>Envíos a mostrador y control operativo del día.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Módulo clave</span>
-        <span class="tag gray">Totales del día</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/mostrador-vdc360/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="orange" data-key="notas credito clientes cierre">
-      <div class="card-header">
-        <div class="icon orange">🧾</div>
-        <div class="card-info">
-          <h3>Notas a Crédito</h3>
-          <p>Generación, uso y cierre rápido de notas.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Control</span>
-        <span class="tag gray">Historial</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/notascreditocvc/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="green" data-key="hoja viaje registro tandas camiones">
-      <div class="card-header">
-        <div class="icon green">🚚</div>
-        <div class="card-info">
-          <h3>Hoja de Viaje</h3>
-          <p>Registro por tandas, totales diarios y control de viaje.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Producción</span>
-        <span class="tag gray">Tandas</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/hoja-viaje-vdc360/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="teal" data-key="hojas panzas limpiar limpieza tablas notas prueba">
-      <div class="card-header">
-        <div class="icon teal">🧼</div>
-        <div class="card-info">
-          <h3>Hojas & Limpieza (Panzas)</h3>
-          <p>Panzas enviadas a limpieza y control de movimientos.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Limpieza</span>
-        <span class="tag gray">Panzas</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/PRUEBA-NOTAS-/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="teal" data-key="limpieza lavado proceso merma panzas libro pata">
-      <div class="card-header">
-        <div class="icon teal">🧽</div>
-        <div class="card-info">
-          <h3>Limpieza</h3>
-          <p>Control del proceso de limpieza por producto: panza, libro, pata y más.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Proceso</span>
-        <span class="tag gray">Merma</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/PRUEBA-NOTAS-/prueba.html">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="purple" data-key="produccion inicio fin lineas hora finalizacion">
-      <div class="card-header">
-        <div class="icon purple">⏱️</div>
-        <div class="card-info">
-          <h3>Producción (Inicio / Fin)</h3>
-          <p>Hora de arranque y finalización por líneas de producción.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Tiempos</span>
-        <span class="tag gray">Líneas</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/produccion-vdc360/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="amber" data-key="cajas menudo conteo entradas cierre inventario cf si resumen">
-      <div class="card-header">
-        <div class="icon amber">📦</div>
-        <div class="card-info">
-          <h3>Cajas Menudo</h3>
-          <p>Registro de entradas y conteo final diario por marca.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Inventario</span>
-        <span class="tag gray">Entradas / CF</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/vdc360_cmenudo/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc360_cmenudo/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="red" data-key="almuerzos comida descanso horario personal registro">
-      <div class="card-header">
-        <div class="icon red">🍽️</div>
-        <div class="card-info">
-          <h3>Hora de Almuerzos</h3>
-          <p>Horario de almuerzo del personal y control de descansos.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Personal</span>
-        <span class="tag gray">Control horario</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/comida.html/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card" data-accent="sky" data-key="reportes reporte resumen general filtrado clientes productos kilos ventas pdf excel analisis">
-      <div class="card-header">
-        <div class="icon sky">📈</div>
-        <div class="card-info">
-          <h3>Reportes</h3>
-          <p>Generación de reportes por fecha, producto, clientes, kilos y resumen general.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag green">Reportes</span>
-        <span class="tag gray">Análisis</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/vdc-reportes/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card admin-card hide" data-admin="true" data-accent="violet"
-      data-key="factura facturacion clientes comprobantes ingresos fiscales cfdi viajes kilos control control de viajes">
-      <div class="card-header">
-        <div class="icon violet">🧮</div>
-        <div class="card-info">
-          <h3>Control de Viajes</h3>
-          <p>Controla los viajes y los kilos.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag admin">🔒 Admin</span>
-        <span class="tag green">Viajes</span>
-        <span class="tag gray">Kilos</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/vdc-factura/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card admin-card hide" data-admin="true" data-accent="teal"
-      data-key="costos costo costos gastos utilidad margen analisis finanzas">
-      <div class="card-header">
-        <div class="icon teal">💰</div>
-        <div class="card-info">
-          <h3>Costos</h3>
-          <p>Control de costos, análisis de utilidad y seguimiento operativo.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag admin">🔒 Admin</span>
-        <span class="tag green">Finanzas</span>
-        <span class="tag gray">Análisis</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/costo-vdc/costos.html">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card admin-card hide" data-admin="true" data-accent="sky"
-      data-key="ventas ventas del dia resumen ingresos cobrado cuentas por cobrar utilidad">
-      <div class="card-header">
-        <div class="icon sky">📊</div>
-        <div class="card-info">
-          <h3>Ventas del Día</h3>
-          <p>Ventas totales, ingresos, cobrado y cuentas por cobrar.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag admin">🔒 Admin</span>
-        <span class="tag green">Ventas</span>
-        <span class="tag gray">Resumen diario</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/vdc-ventas/">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <section class="card admin-card hide" data-admin="true" data-accent="sky"
-      data-key="ventas rango fechas analisis periodo ingresos comparativo">
-      <div class="card-header">
-        <div class="icon sky">📅</div>
-        <div class="card-info">
-          <h3>Ventas en Rango</h3>
-          <p>Analiza ventas por rango de fechas, comportamiento y tendencias.</p>
-        </div>
-      </div>
-      <div class="tags">
-        <span class="tag admin">🔒 Admin</span>
-        <span class="tag green">Análisis</span>
-        <span class="tag gray">Fechas</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn-enter" href="https://marcianoper.github.io/vdc-ventas/prueba.html">Entrar →</a>
-        <a class="btn-home" href="https://marcianoper.github.io/vdc-central/">Inicio</a>
-      </div>
-    </section>
-
-    <div class="empty" id="emptyState">No se encontraron módulos para "<span id="emptyTerm"></span>".</div>
-
-  </div>
+<main>
+  <div id="groups"></div>
+  <div class="empty hide" id="empty">No hay módulos que coincidan con “<b id="emptyTerm"></b>”.</div>
+  <p class="hint" id="hint"></p>
 </main>
 
-<footer class="wrap" style="max-width:1160px;">
+<footer>
   <span>VDC 360° Central · Operación sin fricción</span>
   <span><span class="dot">●</span> Marciano mode ✓</span>
 </footer>
 
+<dialog id="dlg">
+  <form class="dlg" id="dlgForm" method="dialog">
+    <h3>Módulos administrativos</h3>
+    <p>Escribe la clave para mostrar Costos, Ventas y Control de Viajes.</p>
+    <input id="pass" type="password" autocomplete="current-password" aria-label="Clave de acceso" required>
+    <div class="err" id="err" role="alert"></div>
+    <div class="row">
+      <button class="btn" type="button" id="cancel">Cancelar</button>
+      <button class="btn pri" type="submit" id="ok">Entrar</button>
+    </div>
+  </form>
+</dialog>
+
 <script>
-  const ADMIN_PASS = 'VDC360';
+/* =====================================================================
+   MÓDULOS — para agregar uno, copia una línea dentro de su grupo.
+   k = palabras extra para el buscador (sin acentos)
+   ===================================================================== */
+const GROUPS = [
+  { name: 'Producción', items: [
+    { t: 'Hoja de Viaje', d: 'Registro por tandas, totales diarios y control de viaje.', i: '🚚', u: 'https://marcianoper.github.io/hoja-viaje-vdc360/', k: 'registro tandas camiones' },
+    { t: 'Producción (Inicio / Fin)', d: 'Hora de arranque y finalización por línea.', i: '⏱️', u: 'https://marcianoper.github.io/produccion-vdc360/', k: 'inicio fin lineas hora finalizacion tiempos' },
+    { t: 'Limpieza', d: 'Proceso de limpieza por producto: panza, libro, pata y merma.', i: '🧽', u: 'https://marcianoper.github.io/produccion-vdc360/patas.html', k: 'lavado proceso merma panzas libro pata' },
+    { t: 'Hojas & Limpieza (Panzas)', d: 'Panzas enviadas a limpieza y sus movimientos.', i: '🧼', u: 'https://marcianoper.github.io/PRUEBA-NOTAS-', k: 'hojas panzas limpiar tablas notas' },
+  ]},
+  { name: 'Mostrador e inventario', items: [
+    { t: 'Registro Mostrador', d: 'Envíos a mostrador, devoluciones y totales del día.', i: '🛒', u: 'https://marcianoper.github.io/mostrador-vdc360/', k: 'envios devoluciones registro ventas' },
+    { t: 'Notas a Crédito', d: 'Generación, uso y cierre de notas.', i: '🧾', u: 'https://marcianoper.github.io/notascreditocvc/', k: 'notas credito clientes cierre historial' },
+    { t: 'Cajas Menudo', d: 'Entradas y conteo final diario por marca.', i: '📦', u: 'https://marcianoper.github.io/vdc360_cmenudo/', k: 'cajas menudo conteo entradas cierre inventario cf si resumen' },
+  ]},
+  { name: 'Personal y reportes', items: [
+    { t: 'Hora de Almuerzos', d: 'Horario de almuerzo del personal y descansos.', i: '🍽️', u: 'https://marcianoper.github.io/comida.html', k: 'almuerzos comida descanso horario personal registro' },
+    { t: 'Reportes', d: 'Reportes por fecha, producto, cliente y kilos.', i: '📈', u: 'https://marcianoper.github.io/vdc-reportes/', k: 'reporte resumen general filtrado clientes productos kilos ventas pdf excel analisis' },
+  ]},
+];
 
-  const qInput      = document.getElementById('q');
-  const cards       = Array.from(document.querySelectorAll('#cards .card:not(.empty)'));
-  const adminCards  = Array.from(document.querySelectorAll('.admin-card'));
-  const adminToggle = document.getElementById('adminToggle');
-  const adminBtnTxt = document.getElementById('adminBtnText');
-  const adminBadge  = document.getElementById('adminBadge');
-  const adminBar    = document.getElementById('adminBar');
-  const emptyState  = document.getElementById('emptyState');
-  const emptyTerm   = document.getElementById('emptyTerm');
+/* Módulos de admin CIFRADOS con la clave (AES-GCM).
+   Las URLs ya no aparecen en el código. Para cambiar la clave o los módulos,
+   usa generar-clave.html (en tu computadora, NO lo subas a GitHub). */
+const ADMIN_CIPHER = 'y5/3ctnwbhphdYslkVJ9sOhKPB991WTo7iyjno6EqCqfSfmhVuo9XJsL69LqWmOOa6Q/l4DuttayrcVOCaCEvv0xPTOMGokMDFmaGGNiyUUPYkfkO4MKKYQKn0u1ovtGSB7n9YbD2/H8rep1+inRF9PGC5w29XoCKcwMIEWjko3fhMRBkGm3c2/zPZgkVhbDh+iF+V8kfl8B6nKoP9iKhjbRfmKN9WSoe7v8eMYtDYDtueoXRaV5fxlnp2bmyMkf2D9GYEzqLWLDYKHgl+6BMBixWMUSfIJqImsDem4ua8fezPkas85xHa4Qbe1KIoJ6WGogENOsLMG3rFt8D/i7U80RvRQrNMu+6Nht/Xkwhjrec+1LDTClCCYtLL1BnURJhAvrOHXFJHeYmcjPJu1wOcTg+GbCJy0x8HDs0pUzPVm7ZKkh5KwTanlZpRJeM6kGW8ZoPNbWelTX2Rypb99fdkfkhV/ik3idey3wX+PIZjL1GGYaYdaicHIbf8vYHw62J6dReo/pln3BCVSU2IwWcNYnfKHsL8KA++haQ/oHr8NFTTOhXqySBNDV/S8z+6LKN+nytz0UYB33KljawUdRNbV2MsTDiMqd9XvYYdIIcJFn0phq6c7MxWPRYYdGLuURq8giXNzBxl/wb4WTBuNakWHTWyQ86VKTEIEPE6rG1Ye5rJnNVsuxuwKD0Y99KVcQarBOm4GheDqj0vxyq5XHSDDPvN2sFAlcds3HYNHg3FuSCZtHyvaGCHeTWwP739oTxbHetocZy6lx8FQQDdXdEyKqH+ZQTr5BejAu7bZnzwQ0LVqZy1NoJyn9uDgNR/lNsuS7Fznx8b3JlPu0DQvMKe1DTvkbkx2xKX9YU1yFPYuALsr7NMMXpYZ+g1WWwkh7sjlXZO6A4OtagMlIENnL2vlbfUOZYGqG2NRq3NQljPG6r1pSpULVon/FMdNTeflUhaED5la0jcen2s/hVvz2liXV4B5VfK1x27839GLhH/B5MufFaJ5LzEE2I3uZ38wdMzENLQngpL+0Y/DlajlNvz9qhj7VviMXOXDxHJlOz/GEPyG/qBfNC1LFJg==';
 
-  let adminVisible = sessionStorage.getItem('vdc_admin_visible') === 'true';
+/* ===================================================================== */
+const $ = id => document.getElementById(id);
+const q = $('q'), groupsEl = $('groups');
+const norm = s => (s || '').toString().normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const esc = s => (s ?? '').toString().replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const ss = { get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },
+             set: (k, v) => { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch {} } };
 
-  function applyAdmin() {
-    adminCards.forEach(c => c.classList.toggle('hide', !adminVisible));
-    adminToggle.classList.toggle('unlocked', adminVisible);
+let adminItems = null;
+try { adminItems = JSON.parse(ss.get('vdc_admin') || 'null'); } catch { adminItems = null; }
 
-    const lockIcon = adminToggle.querySelector('.lock-icon');
-    lockIcon.textContent = adminVisible ? '🔓' : '🔒';
+const isMac = /mac|iphone|ipad/i.test(navigator.platform || navigator.userAgent);
+$('kbd').textContent = isMac ? '⌘ K' : 'Ctrl K';
 
-    adminBtnTxt.textContent = adminVisible ? 'Ocultar admin' : 'Módulos admin';
-    adminBadge.classList.toggle('show', adminVisible);
-    adminBar.classList.toggle('show', adminVisible);
+const ARROW = '<svg class="go" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-    filterCards();
-  }
+function render() {
+  const term = norm(q.value.trim());
+  const all = adminItems ? [...GROUPS, { name: 'Administración', admin: true, items: adminItems }] : GROUPS;
+  let total = 0, firstDone = false;
 
-  function filterCards() {
-    const t = qInput.value.trim().toLowerCase();
-    let visible = 0;
+  groupsEl.innerHTML = all.map(g => {
+    const items = g.items.filter(m => !term || norm(`${m.t} ${m.d} ${m.k} ${g.name}`).includes(term));
+    if (!items.length) return '';
+    total += items.length;
+    const cards = items.map(m => {
+      const cls = term && !firstDone ? ' first' : '';
+      if (term) firstDone = true;
+      return `<a class="card${cls}" href="${esc(m.u)}">
+        <div class="ico" aria-hidden="true">${m.i}</div>
+        <div class="txt"><h3>${esc(m.t)}</h3><p>${esc(m.d)}</p></div>${ARROW}</a>`;
+    }).join('');
+    return `<section class="group${g.admin ? ' admin' : ''}">
+      <h2>${esc(g.name)} <span class="count">${items.length}</span></h2>
+      ${g.admin && !term ? `<div class="admin-note">🔓 Módulos administrativos visibles en esta sesión.</div>` : ''}
+      <div class="grid">${cards}</div></section>`;
+  }).join('');
 
-    cards.forEach(c => {
-      const isAdmin = c.getAttribute('data-admin') === 'true';
+  $('empty').classList.toggle('hide', total > 0);
+  $('emptyTerm').textContent = q.value.trim();
+  $('hint').textContent = term && total ? 'Enter abre el módulo resaltado.' : '';
 
-      if (isAdmin && !adminVisible) {
-        c.classList.add('hide');
-        return;
-      }
+  const btn = $('adminBtn'), on = !!adminItems;
+  btn.classList.toggle('on', on);
+  btn.setAttribute('aria-pressed', on);
+  $('adminLbl').textContent = on ? 'Ocultar admin' : 'Admin';
+  btn.title = on ? 'Ocultar módulos administrativos' : 'Mostrar módulos administrativos';
+  $('shackle').setAttribute('d', on ? 'M8 10.5V7.5a4 4 0 0 1 7.6-1.7' : 'M8 10.5V7.5a4 4 0 0 1 8 0v3');
+}
 
-      const key = (c.getAttribute('data-key') || '').toLowerCase();
-      const title = (c.querySelector('h3')?.textContent || '').toLowerCase();
-      const desc = (c.querySelector('p')?.textContent || '').toLowerCase();
-      const fullText = `${key} ${title} ${desc}`;
+/* ---------- Descifrado de módulos admin ---------- */
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function descifrar(pass) {
+  const raw = b64(ADMIN_CIPHER), salt = raw.slice(0, 16), iv = raw.slice(16, 28), data = raw.slice(28);
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, data);
+  return JSON.parse(new TextDecoder().decode(plain));
+}
 
-      const hide = Boolean(t) && !fullText.includes(t);
-      c.classList.toggle('hide', hide);
+const dlg = $('dlg');
+$('adminBtn').onclick = () => {
+  if (adminItems) { adminItems = null; ss.set('vdc_admin', null); render(); return; }
+  $('pass').value = ''; $('err').textContent = '';
+  dlg.showModal(); $('pass').focus();
+};
+$('cancel').onclick = () => dlg.close();
+$('dlgForm').onsubmit = async e => {
+  e.preventDefault();
+  const ok = $('ok'); ok.disabled = true; ok.textContent = 'Verificando…'; $('err').textContent = '';
+  try {
+    adminItems = await descifrar($('pass').value);
+    ss.set('vdc_admin', JSON.stringify(adminItems));
+    dlg.close(); render();
+  } catch {
+    $('err').textContent = 'Clave incorrecta.'; $('pass').select();
+  } finally { ok.disabled = false; ok.textContent = 'Entrar'; }
+};
 
-      if (!hide) visible++;
-    });
+/* ---------- Búsqueda y teclado ---------- */
+q.addEventListener('input', render);
+window.addEventListener('keydown', e => {
+  if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); q.focus(); q.select(); }
+  if (document.activeElement !== q) return;
+  if (e.key === 'Escape') { q.value = ''; render(); q.blur(); }
+  if (e.key === 'Enter') { const f = groupsEl.querySelector('.card.first') || groupsEl.querySelector('.card'); if (f) location.href = f.href; }
+});
 
-    emptyState.style.display = (t && visible === 0) ? 'block' : 'none';
-    emptyTerm.textContent = t;
-  }
-
-  adminToggle.addEventListener('click', () => {
-    if (adminVisible) {
-      adminVisible = false;
-      sessionStorage.setItem('vdc_admin_visible', 'false');
-      applyAdmin();
-      return;
-    }
-
-    const pass = prompt('Clave de acceso:');
-
-    if (pass === ADMIN_PASS) {
-      adminVisible = true;
-      sessionStorage.setItem('vdc_admin_visible', 'true');
-      applyAdmin();
-    } else if (pass !== null) {
-      alert('Clave incorrecta.');
-    }
-  });
-
-  qInput.addEventListener('input', filterCards);
-
-  window.addEventListener('keydown', e => {
-    const isMac = navigator.platform.toLowerCase().includes('mac');
-    const cmdK  = (isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k';
-
-    if (cmdK) {
-      e.preventDefault();
-      qInput.focus();
-      qInput.select();
-    }
-
-    if (e.key === 'Escape' && document.activeElement === qInput) {
-      qInput.blur();
-      qInput.value = '';
-      filterCards();
-    }
-
-    if (e.key === 'Enter' && document.activeElement === qInput) {
-      const first = cards.find(c => !c.classList.contains('hide'));
-      if (first) {
-        const link = first.querySelector('.btn-enter');
-        if (link) window.location.href = link.href;
-      }
-    }
-  });
-
-  applyAdmin();
+render();
 </script>
-
 </body>
 </html>
