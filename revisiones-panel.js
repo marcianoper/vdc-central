@@ -9,7 +9,9 @@
 (function () {
   const SUPABASE_URL = "https://bjebybdqcqscouxlinfd.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZWJ5YmRxY3FzY291eGxpbmZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzMjQ3MTksImV4cCI6MjA3MTkwMDcxOX0.mQgWtiYEyJTiF04pdcLv63SqPNrU1Iehws0vKqr82O0";
-  const ANCHO_CONTENIDO = 1120; // ancho de la columna central del dashboard (px)
+  const LADO_MIN = 300;      // espacio mínimo libre a cada lado para usar los 2 paneles laterales
+  const ANCHO_FIJO = 340;    // ancho de la columna fija a la derecha cuando no hay espacio a los lados
+  const PANTALLA_MIN = 1150; // debajo de este ancho solo se muestra el botón flotante
   const TZ = "America/Mexico_City";
 
   const REST = SUPABASE_URL + "/rest/v1/revisiones_pesadas";
@@ -18,11 +20,16 @@
   /* ---------- estilos ---------- */
   const css = `
   .rvp-side{position:fixed;top:84px;bottom:20px;z-index:40;display:none;flex-direction:column;
-    width:calc((100vw - ${ANCHO_CONTENIDO}px)/2 - 44px);max-width:380px;
+    width:var(--rvp-w,300px);max-width:380px;
     background:#fff;border:1px solid #e6e6e1;border-radius:16px;overflow:hidden;
     font-family:inherit;color:#1c1c1a;box-shadow:0 1px 2px rgba(0,0,0,.03)}
   .rvp-side.izq{left:22px}.rvp-side.der{right:22px}
-  @media (min-width:${ANCHO_CONTENIDO + 600}px){.rvp-side{display:flex}.rvp-fab{display:none!important}}
+  html.rvp-modo-lados .rvp-side{display:flex}
+  html.rvp-modo-lados .rvp-fab,html.rvp-modo-fijo .rvp-fab{display:none!important}
+  html.rvp-modo-fijo body{padding-right:${ANCHO_FIJO}px!important}
+  html.rvp-modo-fijo .rvp-drawer{display:block;left:auto;width:${ANCHO_FIJO}px;background:none}
+  html.rvp-modo-fijo .rvp-drawer-box{width:100%;border-left:1px solid #e6e6e1;box-shadow:none}
+  html.rvp-modo-fijo .rvp-x{display:none}
   .rvp-head{padding:16px 16px 12px;border-bottom:1px solid #efefea;display:flex;align-items:center;gap:10px}
   .rvp-head h3{margin:0;font-size:14px;font-weight:600;flex:1;line-height:1.25}
   .rvp-head small{display:block;font-weight:400;color:#7a7a72;font-size:11.5px;margin-top:2px}
@@ -216,6 +223,40 @@
     s.onload = arrancar;
     document.head.appendChild(s);
   }
+
+  /* ---------- acomodo según el espacio real de la pantalla ---------- */
+  function espacioLibre() {
+    // Busca el bloque centrado más ancho del dashboard (la columna de módulos)
+    const vw = document.documentElement.clientWidth;
+    let mejor = 0;
+    const els = document.body.querySelectorAll("body > *, body > * > *, body > * > * > *");
+    for (const el of els) {
+      if (el.closest(".rvp-side,.rvp-drawer,.rvp-fab")) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 500 || r.width > vw - 40) continue;
+      if (Math.abs(r.left - (vw - r.right)) > 24) continue;
+      if (r.width > mejor) mejor = r.width;
+    }
+    return mejor ? (vw - mejor) / 2 : 0;
+  }
+
+  function acomodar() {
+    const html = document.documentElement;
+    html.classList.remove("rvp-modo-lados", "rvp-modo-fijo");
+    const vw = html.clientWidth;
+    const lado = espacioLibre();
+    if (lado >= LADO_MIN) {
+      html.style.setProperty("--rvp-w", Math.min(380, lado - 44) + "px");
+      html.classList.add("rvp-modo-lados");
+    } else if (vw >= PANTALLA_MIN) {
+      html.classList.add("rvp-modo-fijo");
+    }
+  }
+  let tAc;
+  window.addEventListener("resize", () => { clearTimeout(tAc); tAc = setTimeout(acomodar, 150); });
+  if (document.readyState === "complete") acomodar();
+  else window.addEventListener("load", acomodar);
+  acomodar();
 
   cargar();
   enVivo();
