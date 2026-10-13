@@ -11,7 +11,7 @@
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZWJ5YmRxY3FzY291eGxpbmZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzMjQ3MTksImV4cCI6MjA3MTkwMDcxOX0.mQgWtiYEyJTiF04pdcLv63SqPNrU1Iehws0vKqr82O0";
   const LADO_MIN = 300;      // espacio mínimo libre a cada lado para usar los 2 paneles laterales
   const ANCHO_FIJO = 230;    // ancho de la columna fija a la derecha cuando no hay espacio a los lados
-  const PANTALLA_MIN = 1150; // debajo de este ancho solo se muestra el botón flotante
+  const PANTALLA_MIN = 1350; // debajo de este ancho solo se muestra el botón flotante
   const TZ = "America/Mexico_City";
 
   const REST = SUPABASE_URL + "/rest/v1/revisiones_pesadas";
